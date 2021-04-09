@@ -1,0 +1,10 @@
+Speed Mapping progs (SMP)
+Version 2021.1 by dumptruck_ds
+
+2021/4/8
+* Fixed fish count bug (monsters.qc)
+* Fixed fish collision timing (fish.qc)
+* Fixed door unlock sound (doors.qc)
+* Added Preach's monster teleporting flag
+    (spawnflag 8 to trigger spawn a targeted monster)
+* Added "trigger spawn" spawnflag to smp.fgd
