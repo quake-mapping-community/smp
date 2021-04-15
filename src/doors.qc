@@ -581,7 +581,7 @@ void () fd_secret_use =
 
 	if (!(self.spawnflags & SECRET_NO_SHOOT))
 	{
-		self.th_pain = SUB_Null;
+		self.th_pain = (void(entity,float))SUB_Null; // compiler warning fixes from mod_jam_progs -- dumptruck_ds
 		self.takedamage = DAMAGE_NO;
 	}
 	self.velocity = '0 0 0';
@@ -668,7 +668,7 @@ void () fd_secret_done =
 	{
 		self.health = 10000;
 		self.takedamage = DAMAGE_YES;
-		self.th_pain = fd_secret_use;
+		self.th_pain = (void(entity,float))fd_secret_use; // compiler warning fixes from mod_jam_progs -- dumptruck_ds
 	}
 	sound(self, CHAN_VOICE, self.noise3, 1, ATTN_NORM);
 };
@@ -772,7 +772,7 @@ void () func_door_secret =
 	{
 		self.health = 10000;
 		self.takedamage = DAMAGE_YES;
-		self.th_pain = fd_secret_use;
+		self.th_pain = (void(entity,float))fd_secret_use; // compiler warning fixes from mod_jam_progs -- dumptruck_ds
 		self.th_die = fd_secret_use;
 	}
 	self.oldorigin = self.origin;

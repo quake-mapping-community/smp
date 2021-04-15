@@ -1,6 +1,9 @@
 Speed Mapping progs (SMP)
 Version 2021.1 by dumptruck_ds
 
+2021/4/14
+* Fixed FTEQCC compiler warnings courtesy of Khreathor's mod_jam_progs
+
 2021/4/8
 * Fixed fish count bug (monsters.qc)
 * Fixed fish collision timing (fish.qc)
