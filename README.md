@@ -12,15 +12,7 @@
  Use this like any other Quake mod by unzipping the "smp" folder into your Quake
  directory. Then launch Quake with the -game parameter on the command line.
 
- e.g C:\Quake -game smp
-
- 2021/4/8
- * Fixed fish count bug (monsters.qc)
- * Fixed fish collision timing (fish.qc)
- * Fixed door unlock sound (doors.qc)
- * Added Preach's monster teleporting flag
-     (spawnflag 8 to trigger spawn a targeted monster)
- * Added "trigger spawn" spawnflag to smp.fgd
+ e.g c:\quake -game smp
 
  The fgd file is the same as the default included with TrenchBroom with an added
  spawnflag for "trigger spawned" monsters. The source code is included.
