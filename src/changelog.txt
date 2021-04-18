@@ -1,13 +1,19 @@
 Speed Mapping progs (SMP)
-Version 2021.1 by dumptruck_ds
+by dumptruck_ds
 
-2021/417
+Version 2021.3
+
+2021/4/17
 * Renamed a file to spawn.qc
 * Renamed a monster to monster_spawn
 * Added monster_spawn to smp.fgd
 
+Version 2021.2
+
 2021/4/14
 * Fixed FTEQCC compiler warnings courtesy of Khreathor's mod_jam_progs
+
+Version 2021.1
 
 2021/4/8
 * Fixed fish count bug (monsters.qc)
