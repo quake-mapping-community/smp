@@ -27,7 +27,7 @@ dog.qc
 zombie.qc
 boss.qc
 
-tarbaby.qc		// registered
+spawn.qc		// registered -- this has been renamed, see line 188 for info -- dumptruck_ds
 hknight.qc		// registered
 fish.qc			// registered
 shalrath.qc		// registered
