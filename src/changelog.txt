@@ -1,6 +1,18 @@
 Speed Mapping progs (SMP)
 by dumptruck_ds
 
+Featuring Quake Info Pools fixes found here:
+https://www.quake-info-pool.net/q1/qcfix.htm
+
+Version 2021.4
+
+2021/4/22
+* Fixed typo in trigger_changelevel (client.qc)
+* New Episode Fix (eliminates need for Rune hack) (client.qc)
+* Fixed auto switching to Thunderbolt underwater (items.qc)
+* Disabled NoExit in SinglePlayer and Coop (client.qc)
+* Fixed player having velocity when respawning (client.qc)
+
 Version 2021.3
 
 2021/4/17

@@ -76,7 +76,10 @@ void() SetNewParms =
 
 void() DecodeLevelParms =
 {
-	if (serverflags)
+// 1998-01-21 Episode fix by Maddes  start
+		if (!deathmatch)
+//	if (serverflags)
+// 1998-01-21 Episode fix by Maddes  end
 	{
 		if (world.model == "maps/start.bsp")
 			SetNewParms ();		// take away all stuff on starting new episode
@@ -293,12 +296,16 @@ void() changelevel_touch =
 
 	if (other.classname != "player")
 		return;
-
-	if ((cvar("noexit") == 1) || ((cvar("noexit") == 2) && (mapname != "start")))
+// 1998-07-08 Noexit singleplayer/coop fix by Maddes  start
+	if (deathmatch)
 	{
-		T_Damage (other, self, self, 50000);
-		return;
-	}
+// 1998-07-08 Noexit singleplayer/coop fix by Maddes  end
+		if ((cvar("noexit") == 1) || ((cvar("noexit") == 2) && (mapname != "start")))
+		{
+			T_Damage (other, self, self, 50000);
+			return;
+		}
+	} // 1998-07-08 Noexit singleplayer/coop fix by Maddes
 
 	if (coop || deathmatch)
 	{
@@ -330,7 +337,7 @@ When the player touches this, he gets sent to the map listed in the "map" variab
 void() trigger_changelevel =
 {
 	if (!self.map)
-		objerror ("chagnelevel trigger doesn't have map");
+		objerror ("changelevel trigger doesn't have map"); //changelevel typo fixed -- dumptruck_ds
 
 	InitTrigger ();
 	self.touch = changelevel_touch;
@@ -527,6 +534,10 @@ void() PutClientInServer =
 	setsize (self, VEC_HULL_MIN, VEC_HULL_MAX);
 
 	self.view_ofs = '0 0 22';
+
+// Mod - Xian (May.20.97)
+// Bug where player would have velocity from their last kill
+	self.velocity = '0 0 0';	// 1998-07-21 Player moves after respawn fix by Xian
 
 	player_stand1 ();
 
