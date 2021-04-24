@@ -391,6 +391,10 @@ Player entered the suicide command
 */
 void() ClientKill =
 {
+	// 1998-07-27 Suicide during intermission fix by Zhenga  start
+	if ((intermission_running)&&((coop)||(deathmatch)))  // not allowed during intermission
+		return;
+// 1998-07-27 Suicide during intermission fix by Zhenga  end
 	bprint (self.netname);
 	bprint (" suicides\n");
 	set_suicide_frame ();
@@ -520,7 +524,7 @@ void() PutClientInServer =
 
 //	spot = SelectSpawnPoint ();
 
-	self.origin = spot.origin + '0 0 1';
+	self.origin = self.oldorigin = spot.origin + '0 0 1';	// 1998-07-21 Respawning where player died fix by Robert Field
 	self.angles = spot.angles;
 	self.fixangle = TRUE;		// turn this way immediately
 
@@ -685,13 +689,13 @@ void() CheckRules =
 	timelimit = cvar("timelimit") * 60;
 	fraglimit = cvar("fraglimit");
 
-	if (timelimit && time >= timelimit)
+	if (deathmatch && timelimit && time >= timelimit)	// 1998-07-27 Timelimit/Fraglimit fix by Maddes
 	{
 		NextLevel ();
 		return;
 	}
 
-	if (fraglimit && self.frags >= fraglimit)
+	if (deathmatch && fraglimit && self.frags >= fraglimit)	// 1998-07-27 Timelimit/Fraglimit fix by Maddes
 	{
 		NextLevel ();
 		return;

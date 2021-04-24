@@ -1,14 +1,25 @@
 Speed Mapping progs (SMP)
 by dumptruck_ds
 
-Featuring Quake Info Pools fixes found here:
-https://www.quake-info-pool.net/q1/qcfix.htm
+Version 2021.5
+
+2021/4/24
+* Fixed bug in trigger_hurt (defs.qc, triggers.qc)
+* Fixed glowing corpse bug (player.qc)
+* Fixed fraglimit / timelimit bug (client.qc)
+* Disabled suicide during intermission in multiplayer (client.qc)
+* Made fish gibbable (fish.qc)
+* Fixed bug where players respawned where they died (client.qc)
+* Fixed teamplay 1 bugs (combat.qc)
+* Fixed player not spawning bubbles when hurt in slime (player.qc)
+* Fixed bubble spawner bugs (player.qc)
+* Fixed constantly checking all impulses (weapons.qc)
 
 Version 2021.4
 
 2021/4/22
 * Fixed typo in trigger_changelevel (client.qc)
-* New Episode Fix (eliminates need for Rune hack) (client.qc)
+* New Episode Fix (eliminates need for start.bsp rune hack) (client.qc)
 * Fixed auto switching to Thunderbolt underwater (items.qc)
 * Disabled NoExit in SinglePlayer and Coop (client.qc)
 * Fixed player having velocity when respawning (client.qc)

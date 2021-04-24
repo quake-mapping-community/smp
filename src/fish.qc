@@ -148,8 +148,21 @@ void(entity attacker, float damage)	fish_pain =
 // fish allways do pain frames
 	f_pain1 ();
 };
-
-
+// 1998-08-09 Gibbable fishes by Maddes/Athos  start
+void() f_die =
+{
+// check for gib
+	if (self.health < -35)
+	{
+		sound (self, CHAN_VOICE, "player/udeath.wav", 1, ATTN_NORM);
+		ThrowHead ("progs/gib3.mdl", self.health);
+		ThrowGib ("progs/gib3.mdl", self.health);
+		return;
+	}
+// regular death
+	f_death1 ();
+};
+// 1998-08-09 Gibbable fishes by Maddes/Athos  end
 
 /*QUAKED monster_fish (1 0 0) (-16 -16 -24) (16 16 24) Ambush
 */
@@ -177,8 +190,10 @@ void() monster_fish =
 	self.th_stand = f_stand1;
 	self.th_walk = f_walk1;
 	self.th_run = f_run1;
-	self.th_die = f_death1;
-	self.th_pain = fish_pain;
+// 1998-08-09 Gibbable fishes by Maddes/Athos  start
+// self.th_die = f_death1;
+	self.th_die = f_die;
+// 1998-08-09 Gibbable fishes by Maddes/Athos  end	self.th_pain = fish_pain;
 	self.th_melee = f_attack1;
 
 	swimmonster_start ();

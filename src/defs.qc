@@ -697,3 +697,10 @@ local float l;
 w = self.wad;
 l = self.light_lev;
 }
+// 1998-07-03 hurt_touch fix by Robert Field  start
+//
+// triggers.qc
+//
+.float hurt_together_time;
+.float hurt_nextthink;
+// 1998-07-03 hurt_touch fix by Robert Field  end

@@ -190,7 +190,10 @@ racial slur. We've removed it in as many places as possible, but to ensure
 backwards compatability with Quake, we had to retain the code and filenames
 below.
 
-For more info: https://en.wikipedia.org/wiki/Tar-Baby
+For more info:
+
+https://en.wikipedia.org/wiki/Tar-Baby
+http://content.time.com/time/nation/article/0,8599,1221764,00.html
 
 -- dumptruck_ds
 */

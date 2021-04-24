@@ -8,46 +8,50 @@ directory. Then launch Quake with the -game parameter on the command line.
 
 e.g C:\Quake -game smp
 
-This is a simple progs.dat file intended for use as a base for speed mapping
-events. It's a modified version of the id1 progs except for the following
-features or fixes:
+This is a simple progs.dat file intended for use in speed mapping events. This
+is also a good base for new QuakeC projects. It's a modified version of the 1.06
+id1 progs except for the following:
 
-Version 2021.4
+FEATURES
 
-2021/4/22
+* Added Preach's monster teleporting (spawnflag 8 to spawn a targeted monster)
+* Added "trigger spawn" spawnflag to smp.fgd
+* Made fish gibbable (fish.qc)
+* start.bsp resets items (eliminates need for Rune hack) (client.qc)
+
+FIXES
+
+* Fixed bug in trigger_hurt (defs.qc, triggers.qc)
+* Fixed glowing corpse bug (player.qc)
+* Fixed fraglimit / timelimit bug (client.qc)
+* Disabled suicide during intermission in multiplayer (client.qc)
+* Fixed bug where players respawned where they died (client.qc)
+* Fixed teamplay 1 bugs (combat.qc)
+* Fixed player not spawning bubbles when hurt in slime (player.qc)
+* Fixed bubble spawner bugs (player.qc)
+* Fixed constantly checking all impulses (weapons.qc)
 * Fixed typo in trigger_changelevel (client.qc)
-* New Episode Fix (eliminates need for Rune hack) (client.qc)
 * Fixed auto switching to Thunderbolt underwater (items.qc)
 * Disabled NoExit in SinglePlayer and Coop (client.qc)
 * Fixed player having velocity when respawning (client.qc)
-
-Version 2021.3
-
-2021/4/17
 * Renamed a file to spawn.qc
 * Renamed a monster to monster_spawn
 * Added monster_spawn to smp.fgd
-
-Version 2021.2
-
-2021/4/14
-* Fixed FTEQCC compiler warnings courtesy of Khreathor's mod_jam_progs
-
-Version 2021.1
-
-2021/4/8
+* Fixed FTEQCC compiler warnings from mod_jam_progs
 * Fixed fish count bug (monsters.qc)
 * Fixed fish collision timing (fish.qc)
 * Fixed door unlock sound (doors.qc)
-* Added Preach's monster teleporting flag
-    (spawnflag 8 to trigger spawn a targeted monster)
-* Added "trigger spawn" spawnflag to smp.fgd
 
-The fgd file is the same as the default included with TrenchBroom with an added
-spawnflag for "trigger spawned" monsters. The source code is included.
+The fgd file is the same as the default included with TrenchBroom 2021.1 with an
+added spawnflag for "trigger spawned" monsters. The source code is included.
+
+Quake Info Pools fixes:
+https://www.quake-info-pool.net/q1/qcfix.htm
+
+Khreathor's mod_jam_progs:
+http://khreathor.xyz/jam/modding/mod_jam_progs.zip
 
 If you have any questions contact dumptruck_ds at:
-
 lango.lan.party@gmail.com or dumptruck_ds#3116 via Discord
 
 Enjoy!
