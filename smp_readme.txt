@@ -10,7 +10,7 @@ e.g C:\Quake -game smp
 
 This is a simple progs.dat file intended for use in speed mapping events. This
 is also a good base for new QuakeC projects. It's a modified version of the 1.06
-id1 progs except for the following:
+id1 progs with the following changes:
 
 FEATURES
 
@@ -42,8 +42,9 @@ FIXES
 * Fixed fish collision timing (fish.qc)
 * Fixed door unlock sound (doors.qc)
 
-The fgd file is the same as the default included with TrenchBroom 2021.1 with an
-added spawnflag for "trigger spawned" monsters. The source code is included.
+The fgd file is the same as the default included with TrenchBroom 2021.1 with
+added spawnflags for "trigger spawned" monsters and items. The source code is
+included.
 
 Quake Info Pools fixes:
 https://www.quake-info-pool.net/q1/qcfix.htm
