@@ -14,9 +14,9 @@ id1 progs except for the following:
 
 FEATURES
 
-* Added Preach's monster teleporting (spawnflag 8 to spawn a targeted monster)
-* Added "trigger spawn" spawnflag to smp.fgd
-* Made fish gibbable (fish.qc)
+* trigger spawn monsters (monsters.qc)
+* item spawning and respawning (items.qc)
+* fish are gibbable (fish.qc)
 * start.bsp resets items (eliminates need for Rune hack) (client.qc)
 
 FIXES

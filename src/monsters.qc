@@ -31,6 +31,7 @@ setsize (self, self.tele_mins, self.tele_maxs);
 self.think1();
 //PREACH: override the random delay some go functions apply
 self.nextthink = time + 0.1;
+if !(self.spawnflags & 32) // for trigger spawning dumptruck_ds
 spawn_tfog (self.origin);
 spawn_tdeath(self.origin, self);
 }

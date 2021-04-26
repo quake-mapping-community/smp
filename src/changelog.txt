@@ -1,6 +1,15 @@
 Speed Mapping progs (SMP)
 by dumptruck_ds
 
+Version 2021.6
+
+2021/4/26
+* Items, Artifacts, Ammo and Weapons can be trigger spawned
+  and set to respawn using the wait key. They can also be set
+  to spawn and respawn silently or with teleport effects.
+  (items.qc)
+* Added spawn silently flag to monsters (monsters.qc)
+
 Version 2021.5
 
 2021/4/24

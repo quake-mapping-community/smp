@@ -92,6 +92,13 @@
 	target(string) : "Target"
 	killtarget(string) : "Killtarget"
 	delay(integer) : "Delay"
+	spawnflags(flags) =
+	[
+		16 : "trigger spawn" : 0
+		32 : "spawn silently" : 0
+		64 : "respawn particles" : 0
+	]
+
 ]
 @baseclass size(0 0 0, 32 32 56) color(80 0 200) base(Item) = Ammo
 [
@@ -155,6 +162,9 @@
 	[
 		1 : "Rotten" : 0
 		2 : "Megahealth" : 0
+		16 : "trigger spawn" : 0
+		32 : "spawn silently" : 0
+		64 : "respawn particles" : 0
 	]
 ]
 
@@ -211,7 +221,8 @@
 	spawnflags(Flags) =
 	[
 		1 : "Ambush" : 0
-		8 : "trigger spawn" : 8
+		8 : "trigger spawn" : 0
+		32 : "spawn silently" : 0
 	]
 ]
 

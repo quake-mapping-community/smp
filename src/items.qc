@@ -1,17 +1,71 @@
+// start - trigger spawning items -- dumptruck_ds
+// modified from Preach's teleporting monsters tutorial
+.string items_model;
+.vector items_mins;
+.vector items_maxs;
+.float items_solid;
+.float items_movetype;
+.vector particles_offset;
+
+void() PlaceItem;
+void(vector org) spawn_tfog;
+// void(vector org, entity death_owner) spawn_tdeath;
+
+void() items_teleport_go =
+{
+self.solid = self.items_solid;
+self.movetype = self.items_movetype;
+setmodel(self, self.items_model);
+setsize (self, self.items_mins, self.items_maxs);
+
+self.think = PlaceItem;
+//override the random delay some go functions apply
+self.nextthink = time + 0.1;
+if !(self.spawnflags & 32) // for trigger spawning dumptruck_ds
+spawn_tfog (self.origin + self.particles_offset);
+// spawn_tdeath(self.origin, self);
+}
+
+float (void() items_start_fn) items_teleport =
+{
+if(!(self.spawnflags & 16))
+    return FALSE;
+
+//PREACH: This item is to be teleported in, so hide it
+self.items_model= self.model;
+self.items_mins = self.mins;
+self.items_maxs = self.maxs;
+self.items_solid = self.solid;
+self.items_movetype = self.movetype;
+
+self.model = "";
+self.modelindex = 0;
+self.solid = SOLID_NOT;
+self.movetype = MOVETYPE_NONE;
+self.use = items_teleport_go;
+return TRUE;
+}
+// end - trigger spawning items -- dumptruck_ds
+
 void() W_SetCurrentAmmo;
 /* ALL LIGHTS SHOULD BE 0 1 0 IN COLOR ALL OTHER ITEMS SHOULD
 BE .8 .3 .4 IN COLOR */
-
 
 void() SUB_regen =
 {
 	self.model = self.mdl;		// restore original model
 	self.solid = SOLID_TRIGGER;	// allow it to be touched again
-	sound (self, CHAN_VOICE, "items/itembk2.wav", 1, ATTN_NORM);	// play respawn sound
-	setorigin (self, self.origin);
+  if (self.spawnflags & 64) // for trigger spawning dumptruck_ds
+  {
+    spawn_tfog (self.origin + self.particles_offset);
+  }
+  else
+  {
+    if !(self.spawnflags & 32) // for trigger spawning dumptruck_ds
+    sound (self, CHAN_VOICE, "items/itembk2.wav", 1, ATTN_NORM);	// play respawn sound
+  }
+setorigin (self, self.origin);
 };
-
-
 
 /*QUAKED noclass (0 0 0) (-8 -8 -8) (8 8 8)
 prints a warning message when spawned
@@ -23,8 +77,6 @@ void() noclass =
 	dprint ("\n");
 	remove (self);
 };
-
-
 
 /*
 ============
@@ -63,7 +115,10 @@ Sets the clipping size and plants the object on the floor
 */
 void() StartItem =
 {
+	if(items_teleport(items_teleport_go)) // for trigger spawning dumptruck_ds
+    return;
 	self.nextthink = time + 0.2;	// items start after other solids
+	// self.think = items_teleport_go;
 	self.think = PlaceItem;
 };
 
@@ -122,6 +177,7 @@ void() item_health =
 		self.noise = "items/r_item1.wav";
 		self.healamount = 15;
 		self.healtype = 0;
+		self.particles_offset = '16 16 8'; // for trigger spawning dumptruck_ds
 	}
 	else
 	if (self.spawnflags & H_MEGA)
@@ -132,6 +188,7 @@ void() item_health =
 		self.noise = "items/r_item2.wav";
 		self.healamount = 100;
 		self.healtype = 2;
+		self.particles_offset = '16 16 16'; // for trigger spawning dumptruck_ds
 	}
 	else
 	{
@@ -141,6 +198,7 @@ void() item_health =
 		self.noise = "items/health1.wav";
 		self.healamount = 25;
 		self.healtype = 1;
+		self.particles_offset = '16 16 8'; // for trigger spawning dumptruck_ds
 	}
 	setsize (self, '0 0 0', '32 32 56');
 	StartItem ();
@@ -189,6 +247,11 @@ void() health_touch =
 		self.think = item_megahealth_rot;
 		self.owner = other;
 	}
+  if (self.wait && self.wait > 0) // for trigger spawning dumptruck_ds
+  {
+    self.nextthink = time + self.wait;
+    self.think = SUB_regen;
+  }
 	else
 	{
 		if (deathmatch != 2)		// deathmatch 2 is the silly old rules
@@ -271,9 +334,18 @@ void() armor_touch =
 
 	self.solid = SOLID_NOT;
 	self.model = string_null;
-	if (deathmatch == 1)
-		self.nextthink = time + 20;
-	self.think = SUB_regen;
+
+  if (self.wait && self.wait > 0) // for trigger spawning dumptruck_ds
+  {
+    self.nextthink = time + self.wait;
+    self.think = SUB_regen;
+  }
+
+  if (deathmatch == 1)
+  {
+    self.nextthink = time + 20;
+    self.think = SUB_regen;
+  }
 
 	sprint(other, "You got armor\n");
 // armor touch sound
@@ -496,7 +568,14 @@ void() weapon_touch =
 // remove it in single player, or setup for respawning in deathmatch
 	self.model = string_null;
 	self.solid = SOLID_NOT;
-	if (deathmatch == 1)
+
+  if (self.wait && self.wait > 0) // for trigger spawning dumptruck_ds
+  {
+    self.nextthink = time + self.wait;
+    self.think = SUB_regen;
+  }
+
+	else if (deathmatch == 1)
 		self.nextthink = time + 30;
 	self.think = SUB_regen;
 
@@ -677,7 +756,14 @@ local float		best;
 // remove it in single player, or setup for respawning in deathmatch
 	self.model = string_null;
 	self.solid = SOLID_NOT;
-	if (deathmatch == 1)
+
+  if (self.wait && self.wait > 0) // for trigger spawning dumptruck_ds
+  {
+    self.nextthink = time + self.wait;
+    self.think = SUB_regen;
+  }
+
+	else if (deathmatch == 1)
 		self.nextthink = time + 30;
 	self.think = SUB_regen;
 
@@ -702,12 +788,14 @@ void() item_shells =
 		precache_model ("maps/b_shell1.bsp");
 		setmodel (self, "maps/b_shell1.bsp");
 		self.aflag = 40;
+		self.particles_offset = '16 16 16'; // for trigger spawning dumptruck_ds
 	}
 	else
 	{
 		precache_model ("maps/b_shell0.bsp");
 		setmodel (self, "maps/b_shell0.bsp");
 		self.aflag = 20;
+		self.particles_offset = '12 12 12'; // for trigger spawning dumptruck_ds
 	}
 	self.weapon = 1;
 	self.netname = "shells";
@@ -727,12 +815,14 @@ void() item_spikes =
 		precache_model ("maps/b_nail1.bsp");
 		setmodel (self, "maps/b_nail1.bsp");
 		self.aflag = 50;
+		self.particles_offset = '16 16 16'; // for trigger spawning dumptruck_ds
 	}
 	else
 	{
 		precache_model ("maps/b_nail0.bsp");
 		setmodel (self, "maps/b_nail0.bsp");
 		self.aflag = 25;
+		self.particles_offset = '12 12 12'; // for trigger spawning dumptruck_ds
 	}
 	self.weapon = 2;
 	self.netname = "nails";
@@ -752,12 +842,14 @@ void() item_rockets =
 		precache_model ("maps/b_rock1.bsp");
 		setmodel (self, "maps/b_rock1.bsp");
 		self.aflag = 10;
+		self.particles_offset = '16 8 16'; // for trigger spawning dumptruck_ds
 	}
 	else
 	{
 		precache_model ("maps/b_rock0.bsp");
 		setmodel (self, "maps/b_rock0.bsp");
 		self.aflag = 5;
+		self.particles_offset = '8 8 16'; // for trigger spawning dumptruck_ds
 	}
 	self.weapon = 3;
 	self.netname = "rockets";
@@ -778,12 +870,14 @@ void() item_cells =
 		precache_model ("maps/b_batt1.bsp");
 		setmodel (self, "maps/b_batt1.bsp");
 		self.aflag = 12;
+		self.particles_offset = '16 16 16'; // for trigger spawning dumptruck_ds
 	}
 	else
 	{
 		precache_model ("maps/b_batt0.bsp");
 		setmodel (self, "maps/b_batt0.bsp");
 		self.aflag = 6;
+		self.particles_offset = '12 12 12'; // for trigger spawning dumptruck_ds
 	}
 	self.weapon = 4;
 	self.netname = "cells";
@@ -1086,7 +1180,13 @@ void() powerup_touch =
 	sprint (other, self.netname);
 	sprint (other,"\n");
 
-	if (deathmatch)
+  if (self.wait && self.wait > 0) // for trigger spawning dumptruck_ds
+  {
+    self.nextthink = time + self.wait;
+    self.think = SUB_regen;
+  }
+
+	else if (deathmatch)
 	{
 		self.mdl = self.model;
 
