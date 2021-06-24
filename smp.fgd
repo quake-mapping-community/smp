@@ -92,11 +92,25 @@
 	target(string) : "Target"
 	killtarget(string) : "Killtarget"
 	delay(integer) : "Delay"
+	wait(integer) : "Seconds to respawn, 0 = no respawn" : 0
 	spawnflags(flags) =
 	[
 		16 : "trigger spawn" : 0
 		32 : "spawn silently" : 0
 		64 : "respawn particles" : 0
+	]
+
+]
+@baseclass base(Appearflags, Target, Targetname) = NonRespawnableItem
+[
+	message(string) : "Message"
+	target(string) : "Target"
+	killtarget(string) : "Killtarget"
+	delay(integer) : "Delay"
+	spawnflags(flags) =
+	[
+		16 : "trigger spawn" : 0
+		32 : "spawn silently" : 0
 	]
 
 ]
@@ -158,6 +172,7 @@
     ) =
     item_health : "Health pack"
 [
+	wait(integer) : "Seconds to respawn, 0 = no respawn" : 0
 	spawnflags(flags) =
 	[
 		1 : "Rotten" : 0
@@ -183,11 +198,11 @@
 	item_armor2 : "Yellow armor (150%)" []
 @PointClass size(-16 -16 0, 16 16 56) base(Item, Appearflags) model({ "path": ":progs/armor.mdl" }) =
 	item_armor1 : "Green armor (100%)" []
-@PointClass size(-16 -16 -24, 16 16 32) base(Item, Appearflags) model({ "path": ":progs/w_s_key.mdl" }) =
+@PointClass size(-16 -16 -24, 16 16 32) base(NonRespawnableItem, Appearflags) model({ "path": ":progs/w_s_key.mdl" }) =
 	item_key1 : "Silver key" []
-@PointClass size(-16 -16 -24, 16 16 32) base(Item, Appearflags) model({ "path": ":progs/w_g_key.mdl" }) =
+@PointClass size(-16 -16 -24, 16 16 32) base(NonRespawnableItem, Appearflags) model({ "path": ":progs/w_g_key.mdl" }) =
 	item_key2 : "Gold key" []
-@PointClass size(-16 -16 -24, 16 16 32) base(Item, Appearflags) model({ "path": ":progs/end1.mdl" }) =
+@PointClass size(-16 -16 -24, 16 16 32) base(NonRespawnableItem, Appearflags) model({ "path": ":progs/end1.mdl" }) =
 	item_sigil : "Sigil"
 [
 	spawnflags(Flags) =

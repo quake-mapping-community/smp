@@ -1,6 +1,12 @@
 Speed Mapping progs (SMP)
 by dumptruck_ds
 
+Version 2021.7
+
+2021/6/23
+* Added wait key to items in fgd
+* minor changes to readme
+
 Version 2021.6
 
 2021/4/26

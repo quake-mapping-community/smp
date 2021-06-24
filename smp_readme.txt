@@ -15,7 +15,8 @@ id1 progs with the following changes:
 FEATURES
 
 * trigger spawn monsters (monsters.qc)
-* item spawning and respawning (items.qc)
+* trigger spawn items (items.qc)
+* respawn items, ammo and artifacts with wait key (items.qc)
 * fish are gibbable (fish.qc)
 * start.bsp resets items (eliminates need for Rune hack) (client.qc)
 
