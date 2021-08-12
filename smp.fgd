@@ -23,6 +23,7 @@
 		2 : "Base"
 	]
 	sounds(integer) : "CD track to play" : 0
+	gravity(integer) : "Custom gravity (normal = 800, e1m8 = 100). No need to set for normal gravity." : 0
 	light(integer) : "Ambient light"
 	_sunlight(integer) : "Sunlight"
 	_sun_mangle(string) : "Sun mangle (Yaw pitch roll)"
@@ -98,6 +99,7 @@
 		16 : "trigger spawn" : 0
 		32 : "spawn silently" : 0
 		64 : "respawn particles" : 0
+		128 : "suspended in air" : 0
 	]
 
 ]
@@ -111,6 +113,7 @@
 	[
 		16 : "trigger spawn" : 0
 		32 : "spawn silently" : 0
+		128 : "suspended in air" : 0
 	]
 
 ]
@@ -162,7 +165,7 @@
 
 @PointClass
     size(0 0 0, 32 32 56)
-    base(Appearflags)
+    base(Appearflags, Targetname)
     model(
         {{
             spawnflags & 2 ->   ":maps/b_bh100.bsp",
@@ -180,6 +183,7 @@
 		16 : "trigger spawn" : 0
 		32 : "spawn silently" : 0
 		64 : "respawn particles" : 0
+		128 : "suspended in air" : 0
 	]
 ]
 

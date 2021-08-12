@@ -87,23 +87,32 @@ plants the object on the floor
 */
 void() PlaceItem =
 {
-	local float	oldz;
+	// local float	oldz;
 
 	self.mdl = self.model;		// so it can be restored on respawn
 	self.flags = FL_ITEM;		// make extra wide
 	self.solid = SOLID_TRIGGER;
-	self.movetype = MOVETYPE_TOSS;
+  if ((self.spawnflags & 128)) // suspended items - dumptruck_ds
+  {
+	self.movetype = MOVETYPE_FLY;
 	self.velocity = '0 0 0';
-	self.origin_z = self.origin_z + 6;
-	oldz = self.origin_z;
-	if (!droptofloor())
-	{
-		dprint ("Bonus item fell out of level at ");
-		dprint (vtos(self.origin));
-		dprint ("\n");
-		remove(self);
-		return;
-	}
+  }
+  else
+  {
+    {
+    	self.movetype = MOVETYPE_TOSS;
+    	self.velocity = '0 0 0';
+      setorigin (self, self.origin + '0 0 6');
+    }
+      if (!droptofloor())
+        {
+        	dprint ("Bonus item fell out of level at ");
+        	dprint (vtos(self.origin));
+        	dprint ("\n");
+        	remove(self);
+        	return;
+       }
+    }
 };
 
 /*

@@ -1,6 +1,14 @@
 Speed Mapping progs (SMP)
 by dumptruck_ds
 
+Version 2021.8
+
+2021/8/11
+* Added custom gravity setting to worldspawn (def.qc, world.qc)
+* Items, artifacts, ammo, health and weapons can be suspended in air (items.qc)
+* Updated .fgd with new spawnflags and key / values
+* Updated readme with more detailed info on spawnflags and key / values
+
 Version 2021.7
 
 2021/6/23

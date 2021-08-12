@@ -15,10 +15,12 @@ id1 progs with the following changes:
 FEATURES
 
 * trigger spawn monsters (monsters.qc)
-* trigger spawn items (items.qc)
-* respawn items, ammo and artifacts with wait key (items.qc)
+* trigger spawn items, weapons, ammo and artifacts (items.qc)
+* respawn items, weapons, ammo and artifacts with wait key (items.qc)
 * fish are gibbable (fish.qc)
-* start.bsp resets items (eliminates need for Rune hack) (client.qc)
+* start.bsp resets health and items (eliminates need for Rune hack) (client.qc)
+* set custom gravity via worldspawn
+* suspend items, weapons, ammo and artifacts
 
 FIXES
 
@@ -46,6 +48,29 @@ FIXES
 The fgd file is the same as the default included with TrenchBroom 2021.1 with
 added spawnflags for "trigger spawned" monsters and items. The source code is
 included.
+
+SPAWNFLAGS
+
+trigger spawn: Set this to spawn monsters and items. A targetname is required.
+spawn silently: Entities will spawn and respawn silently with no particles.
+respawn particles: When respawning, entities will display particles and make sound.
+suspended in air: Set this to suspend items in mid-air. (see KNOWN BUGS below)
+
+NEW KEY / VALUES
+
+gravity: Set this in the worldspawn entity for custom gravity across the entire
+map. 100 is the gravity used in "Ziggurat Vertigo" (e1m8). 800 is the default
+gravity in Quake. There is no need to set this to the default, leave it blank.
+
+wait: Items, artifacts, ammo, health and weapons will respawn. Set this to how
+many seconds you want between spawns.
+
+KNOWN ISSUES
+
+Items that are trigger spawned AND set above ground height will visably drop to
+the floor if the "suspended in air" flag is not set. To avoid this, make sure
+any items you want to trigger spawn are on the ground OR set the "suspended in
+air" flag to be safe.
 
 Quake Info Pools fixes:
 https://www.quake-info-pool.net/q1/qcfix.htm
