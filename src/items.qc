@@ -213,6 +213,17 @@ void() item_health =
 	StartItem ();
 };
 
+// 1998-08-11 Multiple megahealth rot down too fast fix by Maddes/Athos  start
+void(entity rotowner) MakeHealthRot =
+{
+	local entity rot;
+	rot = spawn ();
+	rot.classname = "health_rot";
+	rot.nextthink = time + 5;
+	rot.think = item_megahealth_rot;
+	rot.owner = rotowner;
+};
+// 1998-08-11 Multiple megahealth rot down too fast fix by Maddes/Athos  end
 
 void() health_touch =
 {
@@ -251,28 +262,57 @@ void() health_touch =
 	// Megahealth = rot down the player's super health
 	if (self.healtype == 2)
 	{
+  // 1998-08-11 Multiple megahealth rot down too fast fix by Maddes/Athos  start
+	local entity	stemp;
+
+	// search player's health rot entity
+	stemp = find (world, classname, "health_rot");
+	while ( (stemp!=world) && (stemp.owner != other) )
+	{
+		stemp = find(stemp,classname,"health_rot");
+	}
+
+	if (stemp)
+	{
+		// delay health rotting again
+		stemp.nextthink = time + 5;
+		stemp.think = item_megahealth_rot;
+	}
+	else
+		MakeHealthRot(other);	// create rot entity
+// 1998-08-11 Multiple megahealth rot down too fast fix by Maddes/Athos  end
 		other.items = other.items | IT_SUPERHEALTH;
+  }
+// 1998-08-11 Multiple megahealth rot down too fast fix by Maddes/Athos  start
+/*
 		self.nextthink = time + 5;
 		self.think = item_megahealth_rot;
 		self.owner = other;
+*/
+	if (deathmatch == 1)	// deathmatch 2 is silly old rules
+	{
+		self.nextthink = time + self.healamount + 25;	// delay (5) + health + respawn wait (20)
+		self.think = SUB_regen;
 	}
-  if (self.wait && self.wait > 0) // for trigger spawning dumptruck_ds
+// 1998-08-11 Multiple megahealth rot down too fast fix by Maddes/Athos  end	}
+	// else
+  // {
+  //   if (deathmatch != 2)		// deathmatch 2 is the silly old rules
+  // 	{
+  // 		if (deathmatch)
+  // 			self.nextthink = time + 20;
+  // 		self.think = SUB_regen;
+  // 	}
+  // }
+
+  if ((!(deathmatch)) & (self.wait && self.wait > 0)) // for trigger spawning dumptruck_ds
   {
     self.nextthink = time + self.wait;
     self.think = SUB_regen;
   }
-	else
-	{
-		if (deathmatch != 2)		// deathmatch 2 is the silly old rules
-		{
-			if (deathmatch)
-				self.nextthink = time + 20;
-			self.think = SUB_regen;
-		}
-	}
 
-	activator = other;
-	SUB_UseTargets();				// fire all targets / killtargets
+  activator = other;
+  SUB_UseTargets();				// fire all targets / killtargets
 };
 
 void() item_megahealth_rot =
@@ -280,21 +320,29 @@ void() item_megahealth_rot =
 	other = self.owner;
 
 	if (other.health > other.max_health)
-	{
+// 1998-08-11 Multiple megahealth rot down too fast fix by Maddes/Athos  start
 		other.health = other.health - 1;
-		self.nextthink = time + 1;
+
+	if (other.health > other.max_health)
+	{
+// 1998-08-11 Multiple megahealth rot down too fast fix by Maddes/Athos  end
+    self.nextthink = time + 1;
 		return;
 	}
 
 // it is possible for a player to die and respawn between rots, so don't
 // just blindly subtract the flag off
 	other.items = other.items - (other.items & IT_SUPERHEALTH);
-
-	if (deathmatch == 1)	// deathmatch 2 is silly old rules
-	{
-		self.nextthink = time + 20;
-		self.think = SUB_regen;
-	}
+  // 1998-08-11 Multiple megahealth rot down too fast fix by Maddes/Athos  start
+  	remove (self);
+  /*
+  	if (deathmatch == 1)	// deathmatch 2 is silly old rules
+  	{
+  		self.nextthink = time + 20;
+  		self.think = SUB_regen;
+  	}
+  */
+  // 1998-08-11 Multiple megahealth rot down too fast fix by Maddes/Athos  end
 };
 
 /*

@@ -1,6 +1,12 @@
 Speed Mapping progs (SMP)
 by dumptruck_ds
 
+Version 2021.9
+
+2021/8/13
+* Fixed syntax errors in health_touch that broke Megahealth
+* Fixed Megahealth Rot courtesy of Quake Info Pool (items.qc)
+
 Version 2021.8
 
 2021/8/11
