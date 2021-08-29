@@ -6,6 +6,13 @@ Version 2021.10
 2021/XX/XX  WORK IN PROGRESS
 * Fixed bug where trigger spawned items could fall out of level
   (items.qc thanks to TheSolopsist)
+* Fixed wrong obituary messages fix by Zoid (multiple qc files)
+* Fixed Pentagram telefrag by Zoid/Maddes (combat.qc)
+* Fixed weapon items never firing their targets in coop or deathmatch 2
+  (items.qc thanks to iw)
+* Fixed key items firing their targets multiple times in coop
+  (items.qc thanks to iw)
+*
 
 Version 2021.9
 

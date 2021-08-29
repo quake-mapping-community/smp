@@ -20,7 +20,7 @@ void() SetMovedir =
 		makevectors (self.angles);
 		self.movedir = v_forward;
 	}
-	
+
 	self.angles = '0 0 0';
 };
 
@@ -78,13 +78,13 @@ local float		len, traveltime;
 		self.nextthink = self.ltime + 0.1;
 		return;
 	}
-		
+
 // set destdelta to the vector needed to move
 	vdestdelta = tdest - self.origin;
-	
+
 // calculate length of vector
 	len = vlen (vdestdelta);
-	
+
 // divide by speed to get time to reach dest
 	traveltime = len / tspeed;
 
@@ -94,12 +94,12 @@ local float		len, traveltime;
 		self.nextthink = self.ltime + 0.1;
 		return;
 	}
-	
+
 // set nextthink to trigger a think when dest is reached
 	self.nextthink = self.ltime + traveltime;
 
 // scale the destdelta vector by the time spent traveling to get velocity
-	self.velocity = vdestdelta * (1/traveltime);	// qcc won't take vec/float	
+	self.velocity = vdestdelta * (1/traveltime);	// qcc won't take vec/float
 };
 
 /*
@@ -122,7 +122,7 @@ void()  SUB_CalcMoveDone =
 SUB_CalcAngleMove
 
 calculate self.avelocity and self.nextthink to reach destangle from
-self.angles rotating 
+self.angles rotating
 
 The calling function should make sure self.think is valid
 ===============
@@ -143,13 +143,13 @@ local float		len, traveltime;
 
 	if (!tspeed)
 		objerror("No speed is defined!");
-		
+
 // set destdelta to the vector needed to move
 	destdelta = destangle - self.angles;
-	
+
 // calculate length of vector
 	len = vlen (destdelta);
-	
+
 // divide by speed to get time to reach dest
 	traveltime = len / tspeed;
 
@@ -158,7 +158,7 @@ local float		len, traveltime;
 
 // scale the destdelta vector by the time spent traveling to get velocity
 	self.avelocity = destdelta * (1 / traveltime);
-	
+
 	self.think1 = func;
 	self.finalangle = destangle;
 	self.think = SUB_CalcAngleMoveDone;
@@ -227,8 +227,8 @@ void() SUB_UseTargets =
 		t.target = self.target;
 		return;
 	}
-	
-	
+
+
 //
 // print the message
 //
@@ -253,11 +253,11 @@ void() SUB_UseTargets =
 			remove (t);
 		} while ( 1 );
 	}
-	
+
 //
 // fire targets
 //
-	if (self.target)
+if (self.target != "") // new syntax needed for SUB_UseAndForgetTargets -- dumptruck_ds
 	{
 		act = activator;
 		t = world;
@@ -282,10 +282,39 @@ void() SUB_UseTargets =
 			activator = act;
 		} while ( 1 );
 	}
-	
+
 
 };
+/*
+The code below was created by iw for progs_dump and has been modified for smp
+================
+SUB_UseAndForgetTargets
 
+This calls SUB_UseTargets, then clears all of self's fields that cause
+SUB_UseTargets to do things.  The intention is that if SUB_UseTargets
+gets called again in the future, it won't do anything.  Call this
+function if you want an entity to fire its targets just this once, and
+never again.
+
+Note that this function relies on the fact that SUB_UseTargets has
+already been modified to work around the engine bug involving tests of
+the form 'if (string)', i.e. that the tests in SUB_UseTargets are now of
+the form 'if (string != "")'.  -- iw
+================
+*/
+void() SUB_UseAndForgetTargets =
+{
+	SUB_UseTargets ();
+
+	self.delay = 0;
+	self.killtarget = "";
+	// self.killtarget2 = "";
+	self.message = "";
+	self.target = "";
+	// self.target2 = "";
+	// self.target3 = "";
+	// self.target4 = "";
+};
 
 /*
 

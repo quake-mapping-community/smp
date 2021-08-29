@@ -214,7 +214,8 @@ void(entity targ, entity inflictor, entity attacker, float damage) T_Damage=
 T_RadiusDamage
 ============
 */
-void(entity inflictor, entity attacker, float damage, entity ignore) T_RadiusDamage =
+// 1998-07-24 Wrong obituary messages fix by Zoid  added parameter dtype
+void(entity inflictor, entity attacker, float damage, entity ignore, string dtype) T_RadiusDamage =
 {
 	local	float 	points;
 	local	entity	head;
@@ -239,6 +240,7 @@ void(entity inflictor, entity attacker, float damage, entity ignore) T_RadiusDam
 				{
 					if (CanDamage (head, inflictor))
 					{	// shambler takes half damage from all explosions
+						head.deathtype = dtype;	// 1998-07-24 Wrong obituary messages fix by Zoid
 						if (head.classname == "monster_shambler")
 							T_Damage (head, inflictor, attacker, points*0.5);
 						else

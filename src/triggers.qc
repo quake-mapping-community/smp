@@ -321,15 +321,51 @@ void() tdeath_touch =
 // frag anyone who teleports in on top of an invincible player
 	if (other.classname == "player")
 	{
-		if (other.invincible_finished > time)
-			self.classname = "teledeath2";
+// 1998-07-26 Pentagram telefrag fix by Zoid/Maddes  start
 		if (self.owner.classname != "player")
 		{	// other monsters explode themselves
 			T_Damage (self.owner, self, self, 50000);
 			return;
 		}
+// 1998-07-26 Pentagram telefrag fix by Zoid/Maddes  end
+		if (other.invincible_finished > time)
+// 1998-07-26 Pentagram telefrag fix by Zoid/Maddes  start
+	{	//player on spot has active pentagram
+		if (self.owner.invincible_finished > time)
+		{	// teleported player has active pentagram too
+			// can happen often in deathmatch 4
+			// and levels with more than one pentagram
+			self.classname = "teledeath3";
+			other.invincible_finished = 0;
+			T_Damage (other, self, self, 50000);	// kill player on spot
+/* 1998-07-26 only telefrag player on spot by Maddes
+			local entity other2;
+			other2 = self.owner;
+			self.owner = other;
+			other2.invincible_finished = 0;
+			T_Damage (other2, self, self, 50000);	// kill teleported player
+*/
+		}
+		else	// 1998-07-26 only telefrag player on spot by Maddes
+		{	// 1998-07-26 only telefrag player on spot by Maddes
+// 1998-07-26 Pentagram telefrag fix by Zoid/Maddes  end
+			self.classname = "teledeath2";
 
+// 1998-07-26 Pentagram telefrag fix by Zoid/Maddes  start
+			T_Damage (self.owner, self, self, 50000);
+		}	// 1998-07-26 only telefrag player on spot by Maddes
+		return;
 	}
+
+/*
+	if (self.owner.classname != "player")
+	{	// other monsters explode themselves
+		T_Damage (self.owner, self, self, 50000);
+		return;
+	}
+*/
+// 1998-07-26 Pentagram telefrag fix by Zoid/Maddes  end
+}
 
 	if (other.health)
 	{

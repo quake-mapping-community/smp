@@ -31,8 +31,11 @@ void() door_go_up;
 
 void() door_blocked =
 {
-	T_Damage (other, self, self, self.dmg);
-
+// 1998-07-24 Wrong obituary messages fix by Zoid  start
+	other.deathtype = "squish";
+//	T_Damage (other, self, self, self.dmg);
+	T_Damage (other, self, self.goalentity, self.dmg);
+// 1998-07-24 Wrong obituary messages fix by Zoid  end
 // if a door has a negative wait, it would never come back if blocked,
 // so let it just squash the object to death real fast
 	if (self.wait >= 0)
@@ -139,6 +142,7 @@ void() door_fire =
 	starte = self;
 	do
 	{
+		self.goalentity = activator;	// 1998-07-24 Wrong obituary messages fix by Zoid  Who fired us
 		door_go_up ();
 		self = self.enemy;
 	} while ( (self != starte) && (self != world) );
@@ -678,6 +682,7 @@ void () secret_blocked =
 	if (time < self.attack_finished)
 		return;
 	self.attack_finished = time + 0.5;
+	other.deathtype = "squish";	// 1998-07-24 Wrong obituary messages fix by Zoid
 	T_Damage (other, self, self, self.dmg);
 };
 

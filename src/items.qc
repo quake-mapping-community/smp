@@ -551,9 +551,19 @@ void() weapon_touch =
 	self = stemp;
 
 	if (deathmatch == 2 || coop)
+  {
 		leave = 1;
+
+  // fix weapon items never firing their targets in coop or
+	// "deathmatch 2" -- iw
+		activator = other;
+		SUB_UseTargets ();
+    self.target = ""; // forget my target now -- dumptruck_ds
+  }
 	else
-		leave = 0;
+  {
+    leave = 0;
+  }
 
 	if (self.classname == "weapon_nailgun")
 	{
@@ -654,6 +664,7 @@ void() weapon_touch =
 
 	activator = other;
 	SUB_UseTargets();				// fire all targets / killtargets
+  self.target = ""; // forget my target now -- dumptruck_ds
 };
 
 
@@ -1063,7 +1074,9 @@ void() key_touch =
 	}
 
 	activator = other;
-	SUB_UseTargets();				// fire all targets / killtargets
+// fix key items firing their targets multiple times in coop -- iw
+//	SUB_UseTargets();				// fire all targets / killtargets
+	SUB_UseAndForgetTargets();
 };
 
 
