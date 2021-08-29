@@ -1,11 +1,26 @@
 // start - trigger spawning items -- dumptruck_ds
 // modified from Preach's teleporting monsters tutorial
+// EDITS from TheSolopsist to solve droptofloor issues
 .string items_model;
 .vector items_mins;
 .vector items_maxs;
 .float items_solid;
 .float items_movetype;
 .vector particles_offset;
+
+/*
+============
+ShowItem from TheSolopsist
+
+makes the item visibe and touchable
+============
+*/
+void() ShowItem =
+{
+    self.mdl = self.model;        // so it can be restored on respawn
+    self.flags = FL_ITEM;        // make extra wide
+    self.solid = SOLID_TRIGGER;
+};
 
 void() PlaceItem;
 void(vector org) spawn_tfog;
@@ -14,38 +29,41 @@ void(vector org) spawn_tfog;
 void() items_teleport_go =
 {
 self.solid = self.items_solid;
-self.movetype = self.items_movetype;
+// self.movetype = self.items_movetype;
 setmodel(self, self.items_model);
 setsize (self, self.items_mins, self.items_maxs);
 
-self.think = PlaceItem;
+ShowItem(); //It's already placed, we just reveal it! -- EDITS from TheSolopsist
+// self.think = ShowItem;
 //override the random delay some go functions apply
-self.nextthink = time + 0.1;
+// self.nextthink = time + 0.1;
 if !(self.spawnflags & 32) // for trigger spawning dumptruck_ds
 spawn_tfog (self.origin + self.particles_offset);
 // spawn_tdeath(self.origin, self);
-}
+};
 
-float (void() items_start_fn) items_teleport =
+void (void() items_start_fn) items_teleport = //changed from FLOAT to VOID -dumptruck_ds
 {
-if(!(self.spawnflags & 16))
-    return FALSE;
-
+if (!(self.spawnflags & 16))
+    // return FALSE; // EDITS from TheSolopsist
+  {
+    ShowItem();  //It's already placed, we just reveal it!
+    return;
+  }
 //PREACH: This item is to be teleported in, so hide it
 self.items_model= self.model;
 self.items_mins = self.mins;
 self.items_maxs = self.maxs;
 self.items_solid = self.solid;
-self.items_movetype = self.movetype;
+// self.items_movetype = self.movetype; // these were causing issues -- dumptruck_ds
 
 self.model = "";
 self.modelindex = 0;
 self.solid = SOLID_NOT;
-self.movetype = MOVETYPE_NONE;
+// self.movetype = MOVETYPE_NONE;
 self.use = items_teleport_go;
-return TRUE;
-}
-// end - trigger spawning items -- dumptruck_ds
+// return TRUE;
+};
 
 void() W_SetCurrentAmmo;
 /* ALL LIGHTS SHOULD BE 0 1 0 IN COLOR ALL OTHER ITEMS SHOULD
@@ -77,7 +95,6 @@ void() noclass =
 	dprint ("\n");
 	remove (self);
 };
-
 /*
 ============
 PlaceItem
@@ -89,9 +106,9 @@ void() PlaceItem =
 {
 	// local float	oldz;
 
-	self.mdl = self.model;		// so it can be restored on respawn
-	self.flags = FL_ITEM;		// make extra wide
-	self.solid = SOLID_TRIGGER;
+	// self.mdl = self.model;		// so it can be restored on respawn
+	// self.flags = FL_ITEM;		// make extra wide
+	// self.solid = SOLID_TRIGGER;
   if ((self.spawnflags & 128)) // suspended items - dumptruck_ds
   {
 	self.movetype = MOVETYPE_FLY;
@@ -124,13 +141,12 @@ Sets the clipping size and plants the object on the floor
 */
 void() StartItem =
 {
-	if(items_teleport(items_teleport_go)) // for trigger spawning dumptruck_ds
-    return;
-	self.nextthink = time + 0.2;	// items start after other solids
+  items_teleport(items_teleport_go);
+ 	self.nextthink = time + 0.2;	// items start after other solids
 	// self.think = items_teleport_go;
 	self.think = PlaceItem;
 };
-
+// end - trigger spawning items -- dumptruck_ds
 /*
 =========================================================================
 
