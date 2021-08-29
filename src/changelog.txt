@@ -1,6 +1,12 @@
 Speed Mapping progs (SMP)
 by dumptruck_ds
 
+Version 2021.10
+
+2021/XX/XX  WORK IN PROGRESS
+* Fixed bug where trigger spawned items could fall out of level
+  (items.qc thanks to TheSolopsist)
+
 Version 2021.9
 
 2021/8/13
