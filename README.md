@@ -36,14 +36,11 @@
 
  KNOWN ISSUES
 
- Items that are trigger spawned AND set above ground height will visably drop to
- the floor if the "suspended in air" flag is not set. To avoid this, make sure
- any items you want to trigger spawn are on the ground OR set the "suspended in
- air" flag to be safe.
+ Currently none.
 
+ CONTACT
 
  If you have any questions contact dumptruck_ds at:
-
  lango.lan.party@gmail.com or dumptruck_ds#3116 via Discord
 
  Enjoy!

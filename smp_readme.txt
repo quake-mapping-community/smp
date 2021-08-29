@@ -67,10 +67,7 @@ many seconds you want between spawns.
 
 KNOWN ISSUES
 
-Items that are trigger spawned AND set above ground height will visably drop to
-the floor if the "suspended in air" flag is not set. To avoid this, make sure
-any items you want to trigger spawn are on the ground OR set the "suspended in
-air" flag to be safe.
+Currently none.
 
 Quake Info Pools fixes:
 https://www.quake-info-pool.net/q1/qcfix.htm
