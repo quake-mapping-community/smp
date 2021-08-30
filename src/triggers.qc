@@ -68,12 +68,26 @@ void() multi_trigger =
 
 void() multi_killed =
 {
+	if (self.is_waiting)	// Supa, restore health and do nothing if we're still waiting to be activated
+	{
+		self.health		= self.max_health;	// nyah nyah~!
+		self.takedamage	= DAMAGE_YES;
+		self.solid		= SOLID_BBOX;
+
+		return;
+	}
+
 	self.enemy = damage_attacker;
 	multi_trigger();
 };
 
 void() multi_use =
 {
+	if (self.is_waiting)	// Supa, if this trigger is waiting to be activated we'll tell it to get ready!
+	{
+		self.is_waiting = FALSE;	// Get ready!
+		return;	// Must be used or triggered again to do anything
+	}
 	self.enemy = activator;
 	multi_trigger();
 };
@@ -81,6 +95,9 @@ void() multi_use =
 void() multi_touch =
 {
 	if (other.classname != "player")
+		return;
+
+	if (self.is_waiting)	// Supa, is this trigger waiting to be activated?
 		return;
 
 // if the trigger has an angles field, check player's facing direction
@@ -107,9 +124,24 @@ sounds
 3)	large switch
 4)
 set "message" to text string
+"is_waiting" : If set to 1, this trigger will do nothing until another trigger activates it
 */
 void() trigger_multiple =
 {
+	if (self.is_waiting) //Supa, is_waiting code -- dumptruck_ds
+	{
+		dprint("\n");
+		dprint("Spawned a waiting ");
+		dprint(self.classname);
+		dprint("\n");
+		dprint(" with targetname ");
+		dprint(self.targetname);
+		dprint("\n");
+		dprint(" and target ");
+		dprint(self.target);
+		dprint("\n\n");
+	}
+
 	if (self.sounds == 1)
 	{
 		precache_sound ("misc/secret.wav");

@@ -12,7 +12,9 @@ Version 2021.10
   (items.qc thanks to iw)
 * Fixed key items firing their targets multiple times in coop
   (items.qc thanks to iw)
-*
+* Added is_waiting key to trigger_once and trigger_multiple
+  If set to 1, this trigger will do nothing until another
+  trigger activates it. (triggers.qc, defs.qc)
 
 Version 2021.9
 

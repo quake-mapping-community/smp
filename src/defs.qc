@@ -705,3 +705,4 @@ l = self.light_lev;
 .float hurt_nextthink;
 // 1998-07-03 hurt_touch fix by Robert Field  end
 .float gravity; // for gravity setting in worldspawn - dumptruck_ds
+.float is_waiting; // Supa, triggers, wait until activated before we can trigger? rmq -- dumptruck_ds
