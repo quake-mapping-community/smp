@@ -162,7 +162,10 @@ if(time <= 0.5)
 	}
 
 // spread think times so they don't all happen at same time
-	self.nextthink = self.nextthink + random()*0.5;
+// 1998-08-14 Monsters sometimes do not move fix by Lord Sméagol  start
+//	self.nextthink = self.nextthink + random()*0.5;
+	self.nextthink = time + 0.1 + random()*0.5;
+// 1998-08-14 Monsters sometimes do not move fix by Lord Sméagol  end
 };
 
 
@@ -175,7 +178,10 @@ void() walkmonster_start =
 
 // delay drop to floor to make sure all doors have been spawned
 // spread think times so they don't all happen at same time
-	self.nextthink = self.nextthink + random()*0.5;
+// 1998-08-14 Monsters sometimes do not move fix by Lord Sméagol  start
+//	self.nextthink = self.nextthink + random()*0.5;
+	self.nextthink = time + 0.1 + random()*0.5;
+// 1998-08-14 Monsters sometimes do not move fix by Lord Sméagol  end
 	self.think = walkmonster_start_go;
 	total_monsters = total_monsters + 1;
 };
@@ -223,6 +229,7 @@ void() flymonster_start_go =
 		self.pausetime = 99999999;
 		self.th_stand ();
 	}
+  self.nextthink = time + 0.1 + random()*0.5;	// 1998-08-14 Monsters sometimes do not move fix by Lord Sméagol
 };
 
 void() flymonster_start =
@@ -231,13 +238,15 @@ void() flymonster_start =
 	if(monster_teleport(flymonster_start_go))
 	return;
 // Preach's teleporting monsters flag - end -- dumptruck_ds
-
+  self.flags = self.flags | FL_FLY;	// 1998-08-14 Monsters sometimes do not move fix by Lord Sméagol
 // spread think times so they don't all happen at same time
-	self.nextthink = self.nextthink + random()*0.5;
-	self.think = flymonster_start_go;
+// 1998-08-14 Monsters sometimes do not move fix by Lord Sméagol  start
+//	self.nextthink = self.nextthink + random()*0.5;
+	self.nextthink = time + 0.1 + random()*0.5;
+// 1998-08-14 Monsters sometimes do not move fix by Lord Sméagol  end
+  self.think = flymonster_start_go;
 	total_monsters = total_monsters + 1;
 };
-
 
 void() swimmonster_start_go =
 {
@@ -279,18 +288,25 @@ void() swimmonster_start_go =
 	}
 
 // spread think times so they don't all happen at same time
-	self.nextthink = self.nextthink + random()*0.5;
+// 1998-08-14 Monsters sometimes do not move fix by Lord Sméagol  start
+//	self.nextthink = self.nextthink + random()*0.5;
+	self.nextthink = time + 0.1 + random()*0.5;
+// 1998-08-14 Monsters sometimes do not move fix by Lord Sméagol  end
 };
 
 void() swimmonster_start =
 {
+  self.flags = self.flags | FL_SWIM;	// 1998-08-14 Monsters sometimes do not move fix by Lord Sméagol
 // Preach's teleporting monsters flag - start -- dumptruck_ds
 	if(monster_teleport(swimmonster_start_go))
 	return;
 // Preach's teleporting monsters flag - end -- dumptruck_ds
 
 // spread think times so they don't all happen at same time
-	self.nextthink = self.nextthink + random()*0.5;
-	self.think = swimmonster_start_go;
+// 1998-08-14 Monsters sometimes do not move fix by Lord Sméagol  start
+//	self.nextthink = self.nextthink + random()*0.5;
+	self.nextthink = time + 0.1 + random()*0.5;
+// 1998-08-14 Monsters sometimes do not move fix by Lord Sméagol  end
+  self.think = swimmonster_start_go;
 	total_monsters = total_monsters + 1;
 };

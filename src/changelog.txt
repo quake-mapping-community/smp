@@ -4,6 +4,7 @@ by dumptruck_ds
 Version 2021.10
 
 2021/XX/XX  WORK IN PROGRESS
+* Completed all Quake Info Pool bug fixes
 * Fixed bug where trigger spawned items could fall out of level
   (items.qc thanks to TheSolopsist)
 * Fixed wrong obituary messages fix by Zoid (multiple qc files)
