@@ -538,13 +538,17 @@
 	message(string) : "Message"
 ]
 
-@SolidClass base(Trigger) = trigger_changelevel : "Trigger: Change level"
+@SolidClass base(Trigger) = trigger_changelevel : "Trigger: Change level
+
+Set spawnflag 2 to spawn the exiting player at an info_player_start2.
+Useful for start or hub maps. This takes the place of Rune hacks."
 [
 	map(string) : "Next map"
 	target(target_destination) : "Target"
 	spawnflags(flags) =
 	[
 		1: "No intermission" : 0
+		2: "Spawn at info_player_start2" : 0
 	]
 ]
 

@@ -13,6 +13,30 @@
 // Preach's teleporting monsters flag - start -- dumptruck_ds
 // from: https://tomeofpreach.wordpress.com/2017/10/08/teleporting-monsters-flag/
 //
+// 1998-09-16 Sliding/not-jumping on monsters/boxes/players fix by Maddes/Kryten  start
+/*
+================
+by: Philip Martin aka: Kryten
+When on top of monsters or players you slide. This is a QuakeC problem.
+The function below fixes that problem.
+based on code given to Kryten by: Michael Turitzin (MaNiAc)
+================
+*/
+void() monster_touch =
+{
+	//can cause problems for monsters on top of a player,  so only players
+	if (other.classname != "player")
+		return;
+	if (other.health <= 0)
+		return;
+
+	if ((!(other.flags & FL_ONGROUND)) && (other.absmin_z >= self.absmax_z - 2))
+		other.flags = other.flags + FL_ONGROUND;
+
+	//you can add other stuff like pushable players/monsters here
+};
+// 1998-09-16 Sliding/not-jumping on monsters/boxes/players fix by Maddes/Kryten  end
+
 .string tele_model;
 .vector tele_mins;
 .vector tele_maxs;

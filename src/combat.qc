@@ -117,7 +117,15 @@ void(entity targ, entity inflictor, entity attacker, float damage) T_Damage=
 		damage = damage * 4;
 
 // save damage based on the target's armor level
-
+// 1998-08-12 Option: Drowning doesn't hurt armor by Maddes/Athos  start
+	if ( (targ.deathtype == "drowning" )	// 1999-02-02 Option: Toggle for previous optional functions by Maddes
+	||   ( damage <= 0 ) )	// 2001-08-30 Negative damage ("healing") fix by Maddes
+	{
+		save = 0;
+	}
+	else
+	{
+// 1998-08-12 Option: Drowning doesn't hurt armor by Maddes/Athos  end
 	save = ceil(targ.armortype*damage);
 	if (save >= targ.armorvalue)
 	{
@@ -125,7 +133,7 @@ void(entity targ, entity inflictor, entity attacker, float damage) T_Damage=
 		targ.armortype = 0;	// lost all armor
 		targ.items = targ.items - (targ.items & (IT_ARMOR1 | IT_ARMOR2 | IT_ARMOR3));
 	}
-
+}	// 1998-08-12 Option: Drowning doesn't hurt armor by Maddes/Athos  start
 	targ.armorvalue = targ.armorvalue - save;
 	take = ceil(damage-save);
 

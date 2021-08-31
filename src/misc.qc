@@ -213,12 +213,9 @@ void() fire_touch =
 
 //============================================================================
 
-
-void() barrel_explode =
+// 1998-08-08 T_RadiusDamage workaround by Patrick Martin  start
+void() barrel_damage =
 {
-	self.takedamage = DAMAGE_NO;
-	self.classname = "explo_box";
-	// did say self.owner
 	T_RadiusDamage (self, self, 160, world, "");	// 1998-07-24 Wrong obituary messages fix by Zoid
 	sound (self, CHAN_VOICE, "weapons/r_exp3.wav", 1, ATTN_NORM);
 	particle (self.origin, '0 0 0', 75, 255);
@@ -226,8 +223,28 @@ void() barrel_explode =
 	self.origin_z = self.origin_z + 32;
 	BecomeExplosion ();
 };
+// 1998-08-08 T_RadiusDamage workaround by Patrick Martin  end
 
+void() barrel_explode =
+{
+	self.takedamage = DAMAGE_NO;
+	self.classname = "explo_box";
 
+// 1998-08-08 T_RadiusDamage workaround by Patrick Martin  start
+/*
+	// did say self.owner
+	T_RadiusDamage (self, self, 160, world, "");	// 1998-07-24 Wrong obituary messages fix by Zoid
+	sound (self, CHAN_VOICE, "weapons/r_exp3.wav", 1, ATTN_NORM);
+	particle (self.origin, '0 0 0', 75, 255);
+
+	self.origin_z = self.origin_z + 32;
+	BecomeExplosion ();
+*/
+
+	self.nextthink = time + 0.1;
+	self.think = barrel_damage;
+// 1998-08-08 T_RadiusDamage workaround by Patrick Martin  end
+};
 
 /*QUAKED misc_explobox (0 .5 .8) (0 0 0) (32 32 64)
 TESTING THING
@@ -245,10 +262,11 @@ void() misc_explobox =
 	self.health = 20;
 	self.th_die = barrel_explode;
 	self.takedamage = DAMAGE_AIM;
+	self.touch = monster_touch;	// 1998-09-16 Sliding/not-jumping on monsters/boxes/players fix by Maddes/Kryten
 
 	self.origin_z = self.origin_z + 2;
 	oldz = self.origin_z;
-	droptofloor();
+	droptofloor();		// 1999-08-13 Missing parameters fix by Maddes
 	if (oldz - self.origin_z > 250)
 	{
 		dprint ("item fell out of level at ");
@@ -277,6 +295,7 @@ void() misc_explobox2 =
 	self.health = 20;
 	self.th_die = barrel_explode;
 	self.takedamage = DAMAGE_AIM;
+	self.touch = monster_touch;	// 1998-09-16 Sliding/not-jumping on monsters/boxes/players fix by Maddes/Kryten
 
 	self.origin_z = self.origin_z + 2;
 	oldz = self.origin_z;

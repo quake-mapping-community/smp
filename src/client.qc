@@ -28,13 +28,19 @@ void() info_intermission =
 {
 };
 
-
+float reset_flag;
 
 void() SetChangeParms =
 {
-	if (self.health <= 0)
+	// put serverflags back to map's initial setting - Preach -- dumptruck_ds
+	// if (self.health <= 0)
+	// {
+	// 	SetNewParms ();
+	// 	return;
+	// }
+	if(reset_flag)
 	{
-		SetNewParms ();
+		setspawnparms(self);
 		return;
 	}
 
@@ -317,6 +323,11 @@ void() changelevel_touch =
 
 	SUB_UseTargets ();
 
+	if (self.spawnflags & 2)
+	{
+		ServerflagsCommand();
+	}
+
 	if ( (self.spawnflags & 1) && (deathmatch == 0) )
 	{	// NO_INTERMISSION
 		GotoNextMap();
@@ -377,7 +388,15 @@ void() respawn =
 	}
 	else
 	{	// restart the entire server
-		localcmd ("restart\n");
+		// put serverflags back to map's initial setting - Preach -- dumptruck_ds
+		// localcmd ("restart\n");
+		serverflags = startingserverflags;
+		// request a reset to the parms
+		reset_flag = TRUE;
+		// "change" to the same level
+		localcmd ("changelevel ");
+		localcmd(mapname);
+		localcmd("\n");
 	}
 };
 
@@ -815,6 +834,7 @@ void() WaterMove =
 			self.dmg = self.dmg + 2;
 			if (self.dmg > 15)
 				self.dmg = 10;
+			self.deathtype = "drowning";	// 1998-08-12 Option: Drowning doesn't hurt armor by Maddes/Athos
 			T_Damage (self, world, world, self.dmg);
 			self.pain_finished = time + 1;
 		}

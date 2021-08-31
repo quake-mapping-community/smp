@@ -169,8 +169,12 @@ World Types:
 2: base
 */
 //=======================
+float startingserverflags; // put serverflags back to map's initial setting - Preach -- dumptruck_ds
+
 void() worldspawn =
 {
+	// put serverflags back to map's initial setting - Preach
+	startingserverflags = serverflags;
 	lastspawn = world;
 	InitBodyQue ();
 

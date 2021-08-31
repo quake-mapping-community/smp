@@ -663,12 +663,12 @@ void(float ox) W_FireSpikes =
 	self.attack_finished = time + 0.2;
 	self.currentammo = self.ammo_nails = self.ammo_nails - 1;
 	dir = aim (self, 1000);
-	launch_spike (self.origin + '0 0 16' + v_right*ox, dir);
+	// nailgun postion fix from Seven and Sajt
+	// launch_spike (self.origin + '0 0 16' + v_right*ox, dir);
+	launch_spike (self.origin + self.view_ofs + v_up * -8 + v_right*ox, dir); //Seven
 
 	self.punchangle_x = -2;
 };
-
-
 
 void() spike_touch =
 {
@@ -688,6 +688,7 @@ void() spike_touch =
 	if (other.takedamage)
 	{
 		spawn_touchblood (9);
+		T_Damage (other, self, self.owner, 9);
 		other.deathtype = "nail";	// 1998-07-24 Wrong obituary messages fix by Zoid
 	}
 	else
