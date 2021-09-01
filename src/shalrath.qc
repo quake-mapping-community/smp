@@ -232,6 +232,9 @@ void() monster_shalrath =
 	self.th_die = shalrath_die;
 	self.th_pain = shalrath_pain;
 	self.th_missile = shal_attack1;
+// 1998-09-16 Sliding/not-jumping on monsters/boxes/players fix by Maddes/Kryten  start
+	self.touch = monster_touch;
+// 1998-09-16 Sliding/not-jumping on monsters/boxes/players fix by Maddes/Kryten  end
 
 	self.think = walkmonster_start;
 	self.nextthink = time + 0.1 + random ()*0.1;

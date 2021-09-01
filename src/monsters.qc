@@ -200,6 +200,8 @@ void() walkmonster_start =
 	return;
 // Preach's teleporting monsters flag - end -- dumptruck_ds
 
+	self.touch = monster_touch;	// 1998-09-16 Sliding/not-jumping on monsters/boxes/players fix by Maddes/Kryten
+
 // delay drop to floor to make sure all doors have been spawned
 // spread think times so they don't all happen at same time
 // 1998-08-14 Monsters sometimes do not move fix by Lord Sméagol  start
@@ -261,6 +263,8 @@ void() flymonster_start =
 // Preach's teleporting monsters flag - start -- dumptruck_ds
 	if(monster_teleport(flymonster_start_go))
 	return;
+
+	self.touch = monster_touch;	// 1998-09-16 Sliding/not-jumping on monsters/boxes/players fix by Maddes/Kryten
 // Preach's teleporting monsters flag - end -- dumptruck_ds
   self.flags = self.flags | FL_FLY;	// 1998-08-14 Monsters sometimes do not move fix by Lord Sméagol
 // spread think times so they don't all happen at same time
@@ -320,6 +324,8 @@ void() swimmonster_start_go =
 
 void() swimmonster_start =
 {
+	self.touch = monster_touch;	// 1998-09-16 Sliding/not-jumping on monsters/boxes/players fix by Maddes/Kryten
+
   self.flags = self.flags | FL_SWIM;	// 1998-08-14 Monsters sometimes do not move fix by Lord Sméagol
 // Preach's teleporting monsters flag - start -- dumptruck_ds
 	if(monster_teleport(swimmonster_start_go))

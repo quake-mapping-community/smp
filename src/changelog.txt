@@ -3,7 +3,7 @@ by dumptruck_ds
 
 Version 2021.10
 
-2021/XX/XX  WORK IN PROGRESS
+2021/08/31
 * Completed all Quake Info Pool bug fixes
 * Fixed bug where trigger spawned items could fall out of level
   (items.qc thanks to TheSolopsist)
@@ -14,8 +14,7 @@ Version 2021.10
 * Fixed key items firing their targets multiple times in coop
   (items.qc thanks to iw)
 * Added is_waiting key to trigger_once and trigger_multiple
-  If set to 1, this trigger will do nothing until another
-  trigger activates it. (triggers.qc, defs.qc)
+  a.k.a. dormant triggers (triggers.qc, defs.qc)
 * Fixed Shambler non-solid bug (shambler.qc)
 * Fixed Nailgun viewmodel projectile position (weapons.qc)
 * Fixed (rare) Rune restart bug (world.qc, client.qc)
@@ -23,7 +22,7 @@ Version 2021.10
 * Fixed sliding/not-jumping on monsters/boxes/players (monsters.qc)
 * Fixed drowning hurts armor (combat.qc, client.qc)
 * Added info_player_start2 spawnflag to trigger_changelevel. This replaces
-  "Rune hacks". Useful for start and hub levels. 
+  "Rune hacks". Useful for start and hub levels.
 
 Version 2021.9
 

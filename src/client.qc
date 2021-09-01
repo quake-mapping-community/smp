@@ -504,7 +504,7 @@ called each time a player is spawned
 */
 void() DecodeLevelParms;
 void() PlayerDie;
-
+void() monster_touch;		// 1998-09-16 Sliding/not-jumping on monsters/boxes/players fix by Maddes/Kryten
 
 void() PutClientInServer =
 {
@@ -536,6 +536,7 @@ void() PutClientInServer =
 	self.attack_finished = time;
 	self.th_pain = player_pain;
 	self.th_die = PlayerDie;
+	self.touch = monster_touch;	// 1998-09-16 Sliding/not-jumping on monsters/boxes/players fix by Maddes/Kryten
 
 	self.deadflag = DEAD_NO;
 // paustime is set by teleporters to keep the player from moving a while
