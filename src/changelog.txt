@@ -1,6 +1,12 @@
 Speed Mapping progs (SMP)
 by dumptruck_ds
 
+Version 2021.11
+
+2021/09/01
+* Fixed misc_fireball bug that lead to crash
+* Added KNOWN ISSUES information in smp_readme.txt
+
 Version 2021.10
 
 2021/08/31
