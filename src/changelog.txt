@@ -4,7 +4,7 @@ by dumptruck_ds
 Version 2021.11
 
 2021/09/01
-* Fixed misc_fireball bug that lead to crash
+* Fixed misc_fireball typo that lead to crash
 * Added KNOWN ISSUES information in smp_readme.txt
 
 Version 2021.10
