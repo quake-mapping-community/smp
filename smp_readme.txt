@@ -69,7 +69,12 @@ many seconds you want between spawns.
 
 KNOWN ISSUES
 
-Currently none.
+Changes to trigger spawning logic could break compatability in packs made with
+earlier versions of SMP. If a door or other moving object collides with the
+spawn point of a trigger spawned entity, the entity could be pushed or "drop
+out" of the level. To avoid this, don't have doors or other moving platforms
+intersecting with an entity's spawn point. However, you can have items spawn
+atop moving trains and lifts just as before.
 
 SOURCES USED FOR FIXES
 
