@@ -9,6 +9,11 @@ directory. Then launch Quake with the -game parameter on the command line.
 
 e.g C:\Quake -game smp
 
+If you want to make a map with smp just release it as a stand alone mod. Simply
+rename "smp" to your mapname and release it as you would a map. Just make sure
+to include the files that came with smp. (don't forget to delete any configs or
+extra unwanted files)
+
 This is a simple progs.dat file intended for use in speed mapping events. This
 is also a good base for new QuakeC projects. It's a modified version of the 1.06
 id1 "netquake" progs with the many bug fixes and features:

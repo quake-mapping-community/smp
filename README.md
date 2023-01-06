@@ -14,6 +14,11 @@ smp_readme.txt
 
  *e.g c:\Quake -game smp*
 
+ If you want to make a map with smp just release it as a stand alone mod. Simply
+ rename "smp" to your mapname and release it as you would a map. Just make sure
+ to include the files that came with smp. (don't forget to delete any configs or
+ extra unwanted files)
+
  The fgd file is the same as the default included with TrenchBroom 2021.1 with
  added spawnflags for "trigger spawned" monsters and items. The source code is
  included.
