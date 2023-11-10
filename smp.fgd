@@ -410,6 +410,7 @@
 @SolidClass base(Angle, Appearflags, Targetname, Target) = func_door : "Basic door"
 [
 	speed(integer) : "Speed" : 100
+	delay(string) : "Delay before trigger"
 	sounds(choices) : "Sound" : 0 =
 	[
         	0: "Silent"
