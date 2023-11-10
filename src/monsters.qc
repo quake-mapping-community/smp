@@ -124,9 +124,10 @@ void() monster_death_use =
 		self.flags = self.flags - FL_FLY;
 	if (self.flags & FL_SWIM)
 		self.flags = self.flags - FL_SWIM;
-
-	if (!self.target)
-		return;
+		
+	// -- this fixes an error. More info here: https://www.celephais.net/board/view_thread.php?id=4&start=7447 
+	// if (!self.target) 
+	// 	return;
 
 	activator = self.enemy;
 	SUB_UseTargets ();
@@ -190,6 +191,15 @@ if(time <= 0.5)
 //	self.nextthink = self.nextthink + random()*0.5;
 	self.nextthink = time + 0.1 + random()*0.5;
 // 1998-08-14 Monsters sometimes do not move fix by Lord Sméagol  end
+	local entity pl; //Spawn Angry method from Shamblernaut - dumptruck_ds 
+
+	pl = find (world, classname, "player");
+
+	if (self.spawnflags & SPAWN_ANGRY)
+	{
+	activator = pl;
+	monster_use();
+	}
 };
 
 
@@ -256,6 +266,15 @@ void() flymonster_start_go =
 		self.th_stand ();
 	}
   self.nextthink = time + 0.1 + random()*0.5;	// 1998-08-14 Monsters sometimes do not move fix by Lord Sméagol
+	local entity pl; //Spawn Angry method from Shamblernaut - dumptruck_ds 
+
+	pl = find (world, classname, "player");
+
+	if (self.spawnflags & SPAWN_ANGRY)
+	{
+	activator = pl;
+	monster_use();
+	}
 };
 
 void() flymonster_start =
@@ -320,6 +339,15 @@ void() swimmonster_start_go =
 //	self.nextthink = self.nextthink + random()*0.5;
 	self.nextthink = time + 0.1 + random()*0.5;
 // 1998-08-14 Monsters sometimes do not move fix by Lord Sméagol  end
+	local entity pl; //Spawn Angry method from Shamblernaut - dumptruck_ds 
+
+	pl = find (world, classname, "player");
+
+	if (self.spawnflags & SPAWN_ANGRY)
+	{
+	activator = pl;
+	monster_use();
+	}
 };
 
 void() swimmonster_start =

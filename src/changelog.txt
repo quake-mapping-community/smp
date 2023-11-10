@@ -1,6 +1,13 @@
 Speed Mapping progs (SMP)
 by dumptruck_ds
 
+Version 2023.1
+
+2023.11.09
+* Added targets2-4
+* Added killtarget2
+* Added SPAWN_ANGRY for trigger spawned monsters
+
 Version 2021.11
 
 2021/09/01

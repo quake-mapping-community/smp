@@ -188,7 +188,7 @@ void() DelayThink =
 	remove(self);
 };
 
-/*
+/* From Custents and modified for smp (added targets2-4, killtarget2)
 ==============================
 SUB_UseTargets
 
@@ -200,16 +200,43 @@ do the SUB_UseTargets after that many seconds have passed.
 Centerprints any self.message to the activator.
 
 Removes all entities with a targetname that match self.killtarget,
-and removes them, so some events can remove other triggers.
+or killtarget2, so some events can remove other triggers.
 
-Search for (string)targetname in all entities that
-match (string)self.target and call their .use function
-
+Search for (string)targetname in all entities that match (string)self.target, self.target2, self.target3,
+or self.target4 and use their .use function.
 ==============================
 */
-void() SUB_UseTargets =
+void(string matchstring, .string matchfield) SUB_UseSpecificTarget =
 {
 	local entity t, stemp, otemp, act;
+
+	act = activator;
+	t = find (world, matchfield, matchstring);
+	while ( t != world )
+	{
+		stemp = self;
+		otemp = other;
+		self = t;
+		other = stemp;
+		if (self.use != SUB_Null)
+		{
+			if (self.use)
+			{
+				lastnameused = matchstring;
+				self.use ();
+			}
+		}
+		self = stemp;
+		other = otemp;
+		activator = act;
+		t = find (t, matchfield, matchstring);
+	}
+};
+
+void() SUB_UseTargets =
+{
+//	local entity t, stemp, otemp, act;
+	local entity t;
 
 //
 // check for a delay
@@ -224,11 +251,15 @@ void() SUB_UseTargets =
 		t.enemy = activator;
 		t.message = self.message;
 		t.killtarget = self.killtarget;
+		t.killtarget2 = self.killtarget2;
 		t.target = self.target;
+		t.target2 = self.target2;
+		t.target3 = self.target3;
+		t.target4 = self.target4;
 		return;
 	}
-
-
+	
+	
 //
 // print the message
 //
@@ -240,51 +271,66 @@ void() SUB_UseTargets =
 	}
 
 //
-// kill the killtargets
+// kill the killtarget entities
 //
-	if (self.killtarget)
+	if (self.killtarget != "")
 	{
-		t = world;
-		do
+		t = find(world, targetname, self.killtarget);
+		while(t != world)
 		{
-			t = find (t, targetname, self.killtarget);
-			if (!t)
-				return;
-			remove (t);
-		} while ( 1 );
+			remove(t);
+			t = find(t, targetname, self.killtarget);
+		}
 	}
 
+//
+// kill the killtaget2 entities
+//
+	if (self.killtarget2 != "")
+	{
+		t = find(world, targetname, self.killtarget2);
+		while(t != world)
+		{
+			remove(t);
+			t = find(t, targetname, self.killtarget2);
+		}
+	}
+	
 //
 // fire targets
 //
-if (self.target != "") // new syntax needed for SUB_UseAndForgetTargets -- dumptruck_ds
+
+// target 1
+	if (self.target != "")
 	{
-		act = activator;
-		t = world;
-		do
-		{
-			t = find (t, targetname, self.target);
-			if (!t)
-			{
-				return;
-			}
-			stemp = self;
-			otemp = other;
-			self = t;
-			other = stemp;
-			if (self.use != SUB_Null)
-			{
-				if (self.use)
-					self.use ();
-			}
-			self = stemp;
-			other = otemp;
-			activator = act;
-		} while ( 1 );
+		SUB_UseSpecificTarget(self.target, targetname);
 	}
 
+// target 2
+	if (self.target2 != "")
+	{
+		SUB_UseSpecificTarget(self.target2, targetname);
+	}
 
+// target 3
+	if (self.target3 != "")
+	{
+		SUB_UseSpecificTarget(self.target3, targetname);
+	}
+
+// target 4
+	if (self.target4 != "")
+	{
+		SUB_UseSpecificTarget(self.target4, targetname);
+	}
 };
+
+void(string matchstring) SUB_UseName =
+{
+	SUB_UseSpecificTarget(matchstring, targetname);
+};
+// ### end of Custents triggering code
+
 /*
 The code below was created by iw for progs_dump and has been modified for smp
 ================

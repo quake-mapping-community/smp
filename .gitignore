@@ -2,3 +2,5 @@ maps/
 qconsole.log
 *.sav
 desktop.ini
+*.cfg
+*.lno

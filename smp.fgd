@@ -48,7 +48,11 @@
 @baseclass = Targetname [ targetname(target_source) : "Name" ]
 @baseclass = Target [
 	target(target_destination) : "Target"
+	target2(target_destination) : "Target2"
+	target3(target_destination) : "Target3"
+	target4(target_destination) : "Target4"
 	killtarget(target_destination) : "Killtarget"
+	killtarget2(target_destination) : "Killtarget2"
 ]
 
 
@@ -241,6 +245,7 @@
 	[
 		1 : "Ambush" : 0
 		8 : "trigger spawn" : 0
+		16 : "spawn angry" : 0
 		32 : "spawn silently" : 0
 	]
 ]
