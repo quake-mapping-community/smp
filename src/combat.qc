@@ -105,9 +105,16 @@ void(entity targ, entity inflictor, entity attacker, float damage) T_Damage=
 	local	entity	oldself;
 	local	float	save;
 	local	float	take;
+	local 	float	ignore_armor; //johnfitz
+	local 	string	death_type; //johnfitz
 
 	if (!targ.takedamage)
-		return;
+	return;
+
+	//johnfitz -- make sure targ.deathtype doesn't keep stale info after this function is done
+	death_type = targ.deathtype;
+	targ.deathtype = "";
+	//johnfitz
 
 // used by buttons and triggers to set activator for target firing
 	damage_attacker = attacker;
@@ -116,16 +123,19 @@ void(entity targ, entity inflictor, entity attacker, float damage) T_Damage=
 	if (attacker.super_damage_finished > time)
 		damage = damage * 4;
 
+	//don't deplete armor if drowning/burning, or protected by biosuit/pentagram/godmode (note: in ID1 pentagram/godmode doesn't actually protect your armor)
+	if (death_type == "burning" || death_type == "drowning" || targ.invincible_finished >= time || targ.flags & FL_GODMODE)
+		ignore_armor = TRUE;
+	else
+		ignore_armor = FALSE;
+//johnfitz
 // save damage based on the target's armor level
-// 1998-08-12 Option: Drowning doesn't hurt armor by Maddes/Athos  start
-	if ( (targ.deathtype == "drowning" )	// 1999-02-02 Option: Toggle for previous optional functions by Maddes
-	||   ( damage <= 0 ) )	// 2001-08-30 Negative damage ("healing") fix by Maddes
+	if (ignore_armor)  //johnfitz -- some damage doesn't deplete armor
 	{
 		save = 0;
 	}
 	else
 	{
-// 1998-08-12 Option: Drowning doesn't hurt armor by Maddes/Athos  end
 	save = ceil(targ.armortype*damage);
 	if (save >= targ.armorvalue)
 	{
@@ -133,7 +143,7 @@ void(entity targ, entity inflictor, entity attacker, float damage) T_Damage=
 		targ.armortype = 0;	// lost all armor
 		targ.items = targ.items - (targ.items & (IT_ARMOR1 | IT_ARMOR2 | IT_ARMOR3));
 	}
-}	// 1998-08-12 Option: Drowning doesn't hurt armor by Maddes/Athos  start
+}
 	targ.armorvalue = targ.armorvalue - save;
 	take = ceil(damage-save);
 

@@ -124,9 +124,9 @@ void() monster_death_use =
 		self.flags = self.flags - FL_FLY;
 	if (self.flags & FL_SWIM)
 		self.flags = self.flags - FL_SWIM;
-		
-	// -- this fixes an error. More info here: https://www.celephais.net/board/view_thread.php?id=4&start=7447 
-	// if (!self.target) 
+
+	// -- this fixes an error. More info here: https://www.celephais.net/board/view_thread.php?id=4&start=7447
+	// if (!self.target)
 	// 	return;
 
 	activator = self.enemy;
@@ -191,7 +191,7 @@ if(time <= 0.5)
 //	self.nextthink = self.nextthink + random()*0.5;
 	self.nextthink = time + 0.1 + random()*0.5;
 // 1998-08-14 Monsters sometimes do not move fix by Lord Sméagol  end
-	local entity pl; //Spawn Angry method from Shamblernaut - dumptruck_ds 
+	local entity pl; //Spawn Angry method from Shamblernaut - dumptruck_ds
 
 	pl = find (world, classname, "player");
 
@@ -205,6 +205,19 @@ if(time <= 0.5)
 
 void() walkmonster_start =
 {
+	if !(self.targetname)
+		{
+			dprint ("\n");
+			dprint ("\bWARNING:\b removed untargeted trigger-spawned ");
+			dprint (self.classname);
+			dprint (" at ");
+			dprint (vtos (self.origin));
+			dprint ("\n");
+			dprint ("\n");
+
+			remove (self);
+			return;
+		}
 // Preach's teleporting monsters flag - start -- dumptruck_ds
 	if(monster_teleport(walkmonster_start_go))
 	return;
@@ -266,7 +279,7 @@ void() flymonster_start_go =
 		self.th_stand ();
 	}
   self.nextthink = time + 0.1 + random()*0.5;	// 1998-08-14 Monsters sometimes do not move fix by Lord Sméagol
-	local entity pl; //Spawn Angry method from Shamblernaut - dumptruck_ds 
+	local entity pl; //Spawn Angry method from Shamblernaut - dumptruck_ds
 
 	pl = find (world, classname, "player");
 
@@ -279,6 +292,19 @@ void() flymonster_start_go =
 
 void() flymonster_start =
 {
+	if !(self.targetname)
+		{
+			dprint ("\n");
+			dprint ("\bWARNING:\b removed untargeted trigger-spawned ");
+			dprint (self.classname);
+			dprint (" at ");
+			dprint (vtos (self.origin));
+			dprint ("\n");
+			dprint ("\n");
+
+			remove (self);
+			return;
+		}
 // Preach's teleporting monsters flag - start -- dumptruck_ds
 	if(monster_teleport(flymonster_start_go))
 	return;
@@ -339,7 +365,7 @@ void() swimmonster_start_go =
 //	self.nextthink = self.nextthink + random()*0.5;
 	self.nextthink = time + 0.1 + random()*0.5;
 // 1998-08-14 Monsters sometimes do not move fix by Lord Sméagol  end
-	local entity pl; //Spawn Angry method from Shamblernaut - dumptruck_ds 
+	local entity pl; //Spawn Angry method from Shamblernaut - dumptruck_ds
 
 	pl = find (world, classname, "player");
 
@@ -352,6 +378,20 @@ void() swimmonster_start_go =
 
 void() swimmonster_start =
 {
+	if !(self.targetname)
+		{
+			dprint ("\n");
+			dprint ("\bWARNING:\b removed untargeted trigger-spawned ");
+			dprint (self.classname);
+			dprint (" at ");
+			dprint (vtos (self.origin));
+			dprint ("\n");
+			dprint ("\n");
+
+			remove (self);
+			return;
+		}
+
 	self.touch = monster_touch;	// 1998-09-16 Sliding/not-jumping on monsters/boxes/players fix by Maddes/Kryten
 
   self.flags = self.flags | FL_SWIM;	// 1998-08-14 Monsters sometimes do not move fix by Lord Sméagol
