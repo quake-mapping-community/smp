@@ -717,7 +717,7 @@ float DROP_TO_GROUND = 2;
 
 void() misc_model =
 {
-	if !(self.mdl)
+	if !(self.model)
 	{
 			dprint ("\n");
 			dprint ("\bWARNING:\b removed misc_model\n");
@@ -742,19 +742,12 @@ void() misc_model =
 	else
 		self.movetype = MOVETYPE_NONE;
 
-	if !(self.skin)
-		self.skin = 0;
-
-	if !(self.frame)
-		self.frame = 0;
-
 	if (!self.mangle)
 		self.mangle = '0 0 0';
 
 	self.classname = "misc_model";
 	self.angles = self.mangle;
-	self.model = self.mdl;
-	precache_model (self.mdl);
+	precache_model (self.model);
 	setmodel (self, self.model);
 	setorigin (self, self.origin);
 	setsize (self, VEC_HULL_MIN, VEC_HULL_MAX);

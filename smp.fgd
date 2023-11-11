@@ -630,7 +630,7 @@ Useful for start or hub maps. This takes the place of Rune hacks."
 ]
 @PointClass size(16 16 16) = misc_noisemaker : "Debug entity: continuously plays enforcer sounds" []
 @PointClass size(16 16 16) = viewthing : "Debug entity: fake player model" []
-@PointClass base(Appearflags) size(32 32 32) color(255 128 0) studio({ "path" : mdl, "skin" : skin, "frame" : frame}) = misc_model : "A point entity for displaying models.
+@PointClass base(Appearflags) size(32 32 32) color(255 128 0) studio({ "path" : model, "skin" : skin, "frame" : frame}) = misc_model : "A point entity for displaying models.
 
 mdl: The model to display. Can be of type mdl, bsp, or spr.
 skin: Select the skin index, if there are more than one.
@@ -646,7 +646,7 @@ if needed."
 [
 	mangle(string) : "X Y Z Orientation (default 0 0 0)"
 	skin(integer) : "Use this skin index (default 0)"
-	mdl(string) : "Path to the model (required, e.g. progs/dog.mdl)"
+	model(string) : "Path to the model (required, e.g. progs/dog.mdl)"
 	frame(integer) : "Animation frame (default 0)"
 	spawnflags(flags) =
 		[
