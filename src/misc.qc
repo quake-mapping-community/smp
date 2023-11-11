@@ -692,3 +692,73 @@ void() misc_noisemaker =
 	self.nextthink = time + 0.1 + random();
 	self.think = noise_think;
 };
+//============================================================================
+
+/*QUAKED misc_model (.5 .5 .5) (-8 -8 -8) (8 8 8) ? 1
+Places a static model
+
+"mdl"			Path to the model (required)
+"frame"		Animation frame (default 0)
+"mangle"	X Y Z Orientation (default 0 0 0)
+"skin" 		Use this skin index (default 0)
+
+Spawnflags:
+"1"		Make non-solid
+"2" 	Drop to ground
+
+NOTES:
+
+Collision is rudamentary. Use Spawnflag 1 and clip brushes to refine collision
+if needed.
+
+*/
+float NON_SOLID = 1;
+float DROP_TO_GROUND = 2;
+
+void() misc_model =
+{
+	if !(self.mdl)
+	{
+			dprint ("\n");
+			dprint ("\bWARNING:\b removed misc_model\n");
+			dprint ("\n");
+			dprint ("no model set on\n");
+			dprint (self.classname);
+			dprint (" at ");
+			dprint (vtos (self.origin));
+			dprint ("\n");
+			dprint ("\n");
+
+			remove (self);
+			return;
+	}
+
+	if (self.spawnflags & NON_SOLID)
+		self.solid = SOLID_NOT;
+	else
+		self.solid = SOLID_BBOX;
+	if (self.spawnflags & DROP_TO_GROUND)
+		self.movetype = MOVETYPE_TOSS;
+	else
+		self.movetype = MOVETYPE_NONE;
+
+	if !(self.skin)
+		self.skin = 0;
+
+	if !(self.frame)
+		self.frame = 0;
+
+	if (!self.mangle)
+		self.mangle = '0 0 0';
+
+	self.classname = "misc_model";
+	self.angles = self.mangle;
+	self.model = self.mdl;
+	precache_model (self.mdl);
+	setmodel (self, self.model);
+	setorigin (self, self.origin);
+	setsize (self, VEC_HULL_MIN, VEC_HULL_MAX);
+
+};
+
+//============================================================================
