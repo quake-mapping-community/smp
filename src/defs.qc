@@ -547,7 +547,7 @@ float	AS_MISSILE		= 4;
 //
 .float		waitmin /*, waitmax*/;
 //.float		distance;
-//.float		volume;
+.float		volume;
 
 
 
@@ -707,10 +707,13 @@ l = self.light_lev;
 .float gravity; // for gravity setting in worldspawn - dumptruck_ds
 .float is_waiting; // Supa, triggers, wait until activated before we can trigger? rmq -- dumptruck_ds
 // START multiple targets and targetnames smp via custents- dumptruck_ds
-.string	target2; 
-.string	target3;  
-.string	target4;  
+.string	target2;
+.string	target3;
+.string	target4;
 string lastnameused;
 .string killtarget2;
 // END multiple targets and targetnames smp via custents - dumptruck_ds
 float SPAWN_ANGRY = 16;
+// for looping play_sound_triggered after save / load
+nosave float cleanUpClientStuff;
+nosave float gamestarted;

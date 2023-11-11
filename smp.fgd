@@ -632,7 +632,7 @@ Useful for start or hub maps. This takes the place of Rune hacks."
 @PointClass size(16 16 16) = viewthing : "Debug entity: fake player model" []
 @PointClass base(Appearflags) size(32 32 32) color(255 128 0) studio({ "path" : model, "skin" : skin, "frame" : frame}) = misc_model : "A point entity for displaying models.
 
-mdl: The model to display. Can be of type mdl, bsp, or spr.
+model: The model to display. Can be of type mdl, bsp, or spr.
 skin: Select the skin index, if there are more than one.
 frame: Single frame to display.
 mangle: pitch roll yaw (up/down, angle, tilt left/right)
@@ -653,4 +653,77 @@ if needed."
 			1: "Make non-solid" : 0
 			2: "Drop to ground" : 0
 		]
+]
+@PointClass size(-8 -8 -8, 8 8 8) color(150 0 150) base(Targetname, Appearflags) = play_sound_triggered : "Triggered sound
+
+Trigger a sound, looping or 'one shot'. Can be toggled on and off. File must be be in the 'sounds' directory or a subdirectory.
+
+toggle (spawnflags): stopped when triggered again
+restart loop: check this and the toggle spawnflag to allow triggered, looping sounds to automatically restart after a save / load
+volume: how loud (range is 0.1 to 1 default is 1 = full volume)
+noise: the wav file to play - NOTE: 'sounds' is not needed in the file path (e.g. ambience/suck1.wav NOT sounds/ambience/suck1.wav)
+impulse: sound channel 0-7 (0 automatic is default)
+speed: attenuation factor
+"
+[
+spawnflags(flags) = [
+	1 : "Toggle" : 0
+	2 : "Restart Loop" : 0
+]
+ 	volume(string) : "Volume" : "0.1 to 1.0"
+	noise(string) : "Sound file to play"
+	impulse(integer) : "Channel (0 to 7)" : 0
+	speed(choices) : "Attenuation" : 1 =
+	[
+		-1: "no attenuation"
+		1: "normal"
+		2: "idle"
+		3: "static"
+	]
+]
+@PointClass size(-8 -8 -8, 8 8 8) color(150 0 150) base(Appearflags) = ambient_general : "Custom ambient sound
+
+This must be a looped file in the 'sounds' directory or a subdirectory.
+
+noise: the wav file to play - NOTE: 'sounds' is not needed in the file path (e.g. ambience/suck1.wav NOT sounds/ambience/suck1.wav)
+volume - default 1
+speed - attenuation, default 3"
+[
+ 	volume(string) : "Volume" : "0.1 - 1.0 (default 0.5)"
+	noise(string) : "Sound file to play"
+	speed(choices) : "Attenuation" : 1 =
+	[
+		-1: "no attenuation"
+		1: "normal"
+		2: "idle"
+		3: "static"
+	]
+]
+@PointClass size(-8 -8 -8, 8 8 8) color(150 0 150) base(Appearflags) = play_sound_random : "Periodic Sound
+
+Play a sound on a periodic basis. File must be be in the 'sounds' directory or a subdirectory.
+
+volume - how loud (1 default full volume)
+noise: the wav file to play - NOTE: 'sounds' is not needed in the file path (e.g. ambience/suck1.wav NOT sounds/ambience/suck1.wav)
+wait - random time between sounds (default 20)
+delay - minimum delay between sounds (default 2)
+impulse - channel on which to play sound (0-7) (0 automatic is default)
+speed - attenuation factor
+   -1 - no attenuation
+    1 - normal
+    2 - idle
+    3 - static"
+[
+ 	volume(string) : "Volume" : "0.1 - 1.0 (default 1)"
+	noise(string) : "Sound file to play"
+	wait(string) : "Wait (Random)" : "20"
+	delay(string) : "Minimum delay" : "2"
+	impulse(integer) : "Channel (0 to 7)" : 0
+	speed(choices) : "Attenuation" : 1 =
+	[
+		-1: "no attenuation"
+		1: "normal"
+		2: "idle"
+		3: "static"
+	]
 ]

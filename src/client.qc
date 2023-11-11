@@ -548,6 +548,8 @@ void() PutClientInServer =
 	self.angles = spot.angles;
 	self.fixangle = TRUE;		// turn this way immediately
 
+	cleanUpClientStuff = 2; // decreased on subsequent frames, used to startup some fog-related stuff
+	
 // oh, this is a hack!
 	setmodel (self, "progs/eyes.mdl");
 	modelindex_eyes = self.modelindex;

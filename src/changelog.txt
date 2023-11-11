@@ -3,13 +3,14 @@ by dumptruck_ds
 
 Version 2023.1
 
-2023.11.09
+2023.11.11
 * Added targets2-4
 * Added killtarget2
 * Added SPAWN_ANGRY for trigger spawned monsters
 * Added misc_model entity
 * Fixed armor taking damage when Pentagram of Protection is active
 * Fixed kill count if trigger spawned monsters have no targetnames
+* Added play_sound_triggered, play_sound_random and ambient_general
 
 Version 2021.11
 

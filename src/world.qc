@@ -348,11 +348,49 @@ void() worldspawn =
 	lightstyle(63, "a");
 };
 
+//============================================================================
+// This allows play_sound_triggered to keep playing after loading a game.
+// Thanks bmFbr
+//============================================================================
+
+void() RestartLoopSounds_think = {
+	sound(self, self.impulse, self.noise, self.volume, self.speed);
+};
+
+void() RestartLoopSounds = {
+	entity e;
+	e = find(world, classname, "play_sound_triggered");
+	while (e) {
+
+		if (e.spawnflags & 3 == 3) { // both "toggle" and "looped" need to be set
+			if (e.state == 1) {
+				e.nextthink = time + 0.1;
+				e.think = RestartLoopSounds_think;
+			}
+		}
+
+		e = find(e, classname, "play_sound_triggered");
+	}
+};
+
 void() StartFrame =
 {
 	teamplay = cvar("teamplay");
 	skill = cvar("skill");
 	framecount = framecount + 1;
+
+	if (cleanUpClientStuff) {
+		cleanUpClientStuff -= 1;
+
+		RestartLoopSounds();
+	}
+	else if (!gamestarted && framecount > 2)
+	{
+		if (framecount != 3)
+			cleanUpClientStuff += 2;
+
+		gamestarted = TRUE;
+	}
 };
 
 /*
