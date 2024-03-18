@@ -205,7 +205,7 @@ if(time <= 0.5)
 
 void() walkmonster_start =
 {
-	if !(self.targetname)
+	if ((self.spawnflags && 8) && (!self.targetname))
 		{
 			dprint ("\n");
 			dprint ("\bWARNING:\b removed untargeted trigger-spawned ");
@@ -292,7 +292,7 @@ void() flymonster_start_go =
 
 void() flymonster_start =
 {
-	if !(self.targetname)
+	if ((self.spawnflags && 8) && (!self.targetname))
 		{
 			dprint ("\n");
 			dprint ("\bWARNING:\b removed untargeted trigger-spawned ");
@@ -378,7 +378,7 @@ void() swimmonster_start_go =
 
 void() swimmonster_start =
 {
-	if !(self.targetname)
+	if ((self.spawnflags && 8) && (!self.targetname))
 		{
 			dprint ("\n");
 			dprint ("\bWARNING:\b removed untargeted trigger-spawned ");
