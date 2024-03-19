@@ -1,5 +1,5 @@
 Speed Mapping progs (SMP)
-Version 2023.1
+Version 2024.1
 by dumptruck_ds
 
 This is a simple mod intended for use in community speed mapping events. It is
