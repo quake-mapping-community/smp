@@ -123,6 +123,10 @@ void(entity targ, entity inflictor, entity attacker, float damage) T_Damage=
 	if (attacker.super_damage_finished > time)
 		damage = damage * 4;
 
+// Instagib
+	if (cvar("fraglimit") == 666)
+		damage = damage * 666;
+
 	//don't deplete armor if drowning/burning, or protected by biosuit/pentagram/godmode (note: in ID1 pentagram/godmode doesn't actually protect your armor)
 	if (death_type == "burning" || death_type == "drowning" || targ.invincible_finished >= time || targ.flags & FL_GODMODE)
 		ignore_armor = TRUE;

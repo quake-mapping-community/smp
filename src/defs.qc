@@ -717,3 +717,8 @@ float SPAWN_ANGRY = 16;
 // for looping play_sound_triggered after save / load
 nosave float cleanUpClientStuff;
 nosave float gamestarted;
+
+//added update stat message
+float SVC_UPDATESTAT = 3;
+//added total monster message
+float STAT_TOTALMONSTERS = 12;
