@@ -124,7 +124,13 @@ void(entity targ, entity inflictor, entity attacker, float damage) T_Damage=
 		damage = damage * 4;
 
 // Instagib
-	if (cvar("fraglimit") == 666)
+	if (cvar("fraglimit") == 666) //everyone gibs
+		damage = damage * 666;
+
+	if ((cvar("fraglimit") == 667) && (attacker.flags & FL_CLIENT)) //gibs monsters only
+		damage = damage * 666;
+
+	if ((cvar("fraglimit") == 668) && (attacker.flags & FL_MONSTER)) //gibs players only
 		damage = damage * 666;
 
 	//don't deplete armor if drowning/burning, or protected by biosuit/pentagram/godmode (note: in ID1 pentagram/godmode doesn't actually protect your armor)

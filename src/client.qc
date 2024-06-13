@@ -549,7 +549,7 @@ void() PutClientInServer =
 	self.fixangle = TRUE;		// turn this way immediately
 
 	cleanUpClientStuff = 2; // decreased on subsequent frames, used to startup some fog-related stuff
-	
+
 // oh, this is a hack!
 	setmodel (self, "progs/eyes.mdl");
 	modelindex_eyes = self.modelindex;
@@ -728,6 +728,7 @@ void() CheckRules =
 
 void() PlayerDeathThink =
 {
+
 	local float 	forward;
 
 	if ((self.flags & FL_ONGROUND))
@@ -738,6 +739,12 @@ void() PlayerDeathThink =
 			self.velocity = '0 0 0';
 		else
 			self.velocity = forward * normalize(self.velocity);
+	}
+
+	if ((cvar("fraglimit") == 666) || (cvar("fraglimit") == 668)) //for Single Player Instagib - dumptruck_ds
+	{
+		if (self.attack_finished > time)
+			return;
 	}
 
 // wait for all buttons released
@@ -756,6 +763,7 @@ void() PlayerDeathThink =
 	self.button0 = 0;
 	self.button1 = 0;
 	self.button2 = 0;
+
 	respawn();
 };
 

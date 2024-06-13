@@ -542,6 +542,9 @@ void() GibPlayer =
 
 void() PlayerDie =
 {
+	if ((cvar("fraglimit") == 666) || (cvar("fraglimit") == 668)) //pause spawning for single player Instagib - dumptruck_ds
+	self.attack_finished = time  +1.25;
+
 	local	float	i;
 
 // 1998-07-23 Palette shift when player dies with quad/pentagram fix by Maddes  start
