@@ -512,6 +512,24 @@ void(string gibname, float dm) ThrowHead =
 	self.avelocity = crandom() * '0 600 0';
 };
 
+void() GibSoundsRandom =
+{
+	local float		rs;
+
+	rs = rint ((random() * 3) + 1);
+	if (rs == 1)
+		self.noise = "player/teledth1.wav";
+	if (rs == 2)
+		self.noise = "player/gib.wav";
+	if (rs == 3)
+		self.noise = "player/tornoff2.wav";
+	if (rs == 4)
+		self.noise = "player/udeath.wav";
+
+	sound (self, CHAN_VOICE, self.noise, 1, ATTN_NONE);
+	return;
+};
+
 
 void() GibPlayer =
 {
@@ -531,6 +549,12 @@ void() GibPlayer =
 	if (damage_attacker.classname == "teledeath2")
 	{
 		sound (self, CHAN_VOICE, "player/teledth1.wav", 1, ATTN_NONE);
+		return;
+	}
+
+	if ((cvar("fraglimit") == 666) || (cvar("fraglimit") == 668))
+	{
+		GibSoundsRandom();
 		return;
 	}
 

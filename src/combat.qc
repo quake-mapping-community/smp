@@ -124,14 +124,17 @@ void(entity targ, entity inflictor, entity attacker, float damage) T_Damage=
 		damage = damage * 4;
 
 // Instagib
-	if (cvar("fraglimit") == 666) //everyone gibs
-		damage = damage * 666;
+	if (!deathmatch)
+		{
+			if ((cvar("fraglimit") == 666) && (!(death_type == "falling" || death_type == "burning" || death_type == "drowning" || targ.invincible_finished >= time || targ.flags & FL_GODMODE))) //everyone gibs
+			damage = damage * 666;
 
-	if ((cvar("fraglimit") == 667) && (attacker.flags & FL_CLIENT)) //gibs monsters only
-		damage = damage * 666;
+			if ((cvar("fraglimit") == 667) && (attacker.flags & FL_CLIENT) && (!(death_type == "falling"  || death_type == "burning"|| death_type == "drowning" || targ.invincible_finished >= time || targ.flags & FL_GODMODE))) //gibs monsters only
+			damage = damage * 666;
 
-	if ((cvar("fraglimit") == 668) && (attacker.flags & FL_MONSTER)) //gibs players only
-		damage = damage * 666;
+			if ((cvar("fraglimit") == 668) && (attacker.flags & FL_MONSTER) && (!(death_type == "falling"  || death_type == "burning"|| death_type == "drowning" || targ.invincible_finished >= time || targ.flags & FL_GODMODE))) //gibs players only
+			damage = damage * 666;
+		}
 
 	//don't deplete armor if drowning/burning, or protected by biosuit/pentagram/godmode (note: in ID1 pentagram/godmode doesn't actually protect your armor)
 	if (death_type == "burning" || death_type == "drowning" || targ.invincible_finished >= time || targ.flags & FL_GODMODE)

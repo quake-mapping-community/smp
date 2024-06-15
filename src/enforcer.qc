@@ -289,11 +289,17 @@ void() enf_die =
 // check for gib
 	if (self.health < -35)
 	{
-		sound (self, CHAN_VOICE, "player/udeath.wav", 1, ATTN_NORM);
 		ThrowHead ("progs/h_mega.mdl", self.health);
 		ThrowGib ("progs/gib1.mdl", self.health);
 		ThrowGib ("progs/gib2.mdl", self.health);
 		ThrowGib ("progs/gib3.mdl", self.health);
+		// spinstagib sounds
+		if ((cvar("fraglimit") == 666) || (cvar("fraglimit") == 668))
+		{
+			GibSoundsRandom();
+			return;
+		}
+		sound (self, CHAN_VOICE, "player/udeath.wav", 1, ATTN_NORM);
 		return;
 	}
 
