@@ -129,10 +129,10 @@ void(entity targ, entity inflictor, entity attacker, float damage) T_Damage=
 			if ((cvar("fraglimit") == 666) && (!(death_type == "falling" || death_type == "burning" || death_type == "drowning" || targ.invincible_finished >= time || targ.flags & FL_GODMODE))) //everyone gibs
 			damage = damage * 666;
 
-			if ((cvar("fraglimit") == 667) && (attacker.flags & FL_CLIENT) && (!(death_type == "falling"  || death_type == "burning"|| death_type == "drowning" || targ.invincible_finished >= time || targ.flags & FL_GODMODE))) //gibs monsters only
+			if ((cvar("fraglimit") == 333) && (attacker.flags & FL_CLIENT) && (!(death_type == "falling"  || death_type == "burning"|| death_type == "drowning" || targ.invincible_finished >= time || targ.flags & FL_GODMODE))) //gibs monsters only
 			damage = damage * 666;
 
-			if ((cvar("fraglimit") == 668) && (attacker.flags & FL_MONSTER) && (!(death_type == "falling"  || death_type == "burning"|| death_type == "drowning" || targ.invincible_finished >= time || targ.flags & FL_GODMODE))) //gibs players only
+			if ((cvar("fraglimit") == 999) && (attacker.flags & FL_MONSTER) && (!(death_type == "falling"  || death_type == "burning"|| death_type == "drowning" || targ.invincible_finished >= time || targ.flags & FL_GODMODE))) //gibs players only
 			damage = damage * 666;
 		}
 

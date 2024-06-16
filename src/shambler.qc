@@ -323,7 +323,7 @@ void() sham_die =
 		ThrowGib ("progs/gib2.mdl", self.health);
 		ThrowGib ("progs/gib3.mdl", self.health);
 		// spinstagib sounds
-		if ((cvar("fraglimit") == 666) || (cvar("fraglimit") == 668))
+		if ((cvar("fraglimit") == 666) || (cvar("fraglimit") == 333))
 		{
 			GibSoundsRandom();
 			return;

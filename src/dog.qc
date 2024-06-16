@@ -247,7 +247,7 @@ void() dog_die =
 		ThrowGib ("progs/gib3.mdl", self.health);
 		ThrowHead ("progs/h_dog.mdl", self.health);
 		// spinstagib sounds
-		if ((cvar("fraglimit") == 666) || (cvar("fraglimit") == 668))
+		if ((cvar("fraglimit") == 666) || (cvar("fraglimit") == 333))
 		{
 			GibSoundsRandom();
 			return;

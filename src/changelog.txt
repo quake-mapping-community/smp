@@ -7,7 +7,17 @@ Version 2024.2
 
 * Fixed a bug that prevented some monsters from spawning
 * Added Single Player Instagib modes (spinstagib)
-* Gib sounds will randomize between 4 appropriate built-in sounds
+  Set your desired mode in the console:
+    gib_all - instagib everyone
+    gib_monsters - only monsters instagib
+    gib_player - only players instagib
+    gib_off - disables instagib
+  You can also enable them on the command line:
+    fraglimit 666 - instagib everyone
+    fraglimit 333 - only monsters instagib
+    fraglimit 999 - only players instagib
+    fraglimit 0 - disables instagib
+* instagib sounds will randomize between 4 appropriate built-in sounds
 
 Version 2024.1
 

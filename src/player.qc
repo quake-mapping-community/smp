@@ -552,7 +552,7 @@ void() GibPlayer =
 		return;
 	}
 
-	if ((cvar("fraglimit") == 666) || (cvar("fraglimit") == 668))
+	if ((cvar("fraglimit") == 666) || (cvar("fraglimit") == 999))
 	{
 		GibSoundsRandom();
 		return;
@@ -566,7 +566,7 @@ void() GibPlayer =
 
 void() PlayerDie =
 {
-	if ((cvar("fraglimit") == 666) || (cvar("fraglimit") == 668)) //pause spawning for single player Instagib - dumptruck_ds
+	if ((cvar("fraglimit") == 666) || (cvar("fraglimit") == 999)) //pause spawning for single player Instagib - dumptruck_ds
 	self.attack_finished = time  +1.25;
 
 	local	float	i;

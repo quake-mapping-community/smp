@@ -740,8 +740,8 @@ void() PlayerDeathThink =
 		else
 			self.velocity = forward * normalize(self.velocity);
 	}
-
-	if ((cvar("fraglimit") == 666) || (cvar("fraglimit") == 668)) //for Single Player Instagib - dumptruck_ds
+	// 1.25 second pause for spinstagib, without this players can respawn while gibbing if they are spamming fire - dumptruck_ds
+	if ((cvar("fraglimit") == 666) || (cvar("fraglimit") == 999))
 	{
 		if (self.attack_finished > time)
 			return;
