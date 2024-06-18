@@ -126,18 +126,18 @@ void(entity targ, entity inflictor, entity attacker, float damage) T_Damage=
 // Instagib
 	if (!deathmatch)
 		{
-			if ((cvar("fraglimit") == 666) && (!(death_type == "falling" || death_type == "burning" || death_type == "drowning" || death_type == "squish" || targ.invincible_finished >= time || targ.flags & FL_GODMODE))) //everyone gibs
+			if ((cvar("fraglimit") == 666) && (!(attacker.classname == "fireball")) && (!(death_type == "falling" || death_type == "burning" || death_type == "drowning" || death_type == "squish" || targ.invincible_finished >= time || targ.flags & FL_GODMODE))) //everyone gibs
 			damage = damage * 666;
 
-			if ((cvar("fraglimit") == 333) && (attacker.flags & FL_CLIENT) && (!(death_type == "falling"  || death_type == "burning"|| death_type == "drowning" || death_type == "squish" || targ.invincible_finished >= time || targ.flags & FL_GODMODE))) //gibs monsters only
+			if ((cvar("fraglimit") == 333) && (attacker.flags & FL_CLIENT) && (!(attacker.classname == "fireball")) && (!(death_type == "falling"  || death_type == "burning"|| death_type == "drowning" || death_type == "squish" || targ.invincible_finished >= time || targ.flags & FL_GODMODE))) //gibs monsters only
 			damage = damage * 666;
 
-			if ((cvar("fraglimit") == 999) && (attacker.flags & FL_MONSTER) && (!(death_type == "falling"  || death_type == "burning"|| death_type == "drowning" || death_type == "squish" || targ.invincible_finished >= time || targ.flags & FL_GODMODE))) //gibs players only
+			if ((cvar("fraglimit") == 999) && (attacker.flags & FL_MONSTER) && (!(attacker.classname == "fireball")) && (!(death_type == "falling"  || death_type == "burning"|| death_type == "drowning" || death_type == "squish" || targ.invincible_finished >= time || targ.flags & FL_GODMODE))) //gibs players only
 			damage = damage * 666;
 		}
 
 	//don't deplete armor if drowning/burning, or protected by biosuit/pentagram/godmode (note: in ID1 pentagram/godmode doesn't actually protect your armor)
-	if (death_type == "burning" || death_type == "drowning" || targ.invincible_finished >= time || targ.flags & FL_GODMODE)
+	if (death_type == "drowning" || targ.invincible_finished >= time || targ.flags & FL_GODMODE)
 		ignore_armor = TRUE;
 	else
 		ignore_armor = FALSE;
