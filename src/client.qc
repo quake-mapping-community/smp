@@ -871,7 +871,8 @@ void() WaterMove =
 			else
 				self.dmgtime = time + 0.2;
 
-			T_Damage (self, world, world, 10*self.waterlevel);
+				self.deathtype = "burning";	// check for Instagib - dumptruck_ds
+				T_Damage (self, world, world, 10*self.waterlevel);
 		}
 	}
 	else if (self.watertype == CONTENT_SLIME)
@@ -879,6 +880,7 @@ void() WaterMove =
 		if (self.dmgtime < time && self.radsuit_finished < time)
 		{
 			self.dmgtime = time + 1;
+			self.deathtype = "slimed";	// check for Instagib - dumptruck_ds
 			T_Damage (self, world, world, 4*self.waterlevel);
 		}
 	}
