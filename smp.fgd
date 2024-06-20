@@ -656,7 +656,7 @@ if needed."
 ]
 @PointClass size(-8 -8 -8, 8 8 8) color(150 0 150) base(Targetname, Appearflags) = play_sound_triggered : "Triggered sound
 
-Trigger a sound, looping or 'one shot'. Can be toggled on and off. File must be be in the 'sounds' directory or a subdirectory.
+Trigger a sound, looping or 'one shot'. Can be toggled on and off. File must be be in the 'sounds' directory or a subdirectory under 'sounds'.
 
 toggle (spawnflags): stopped when triggered again
 restart loop: check this and the toggle spawnflag to allow triggered, looping sounds to automatically restart after a save / load
@@ -683,7 +683,7 @@ spawnflags(flags) = [
 ]
 @PointClass size(-8 -8 -8, 8 8 8) color(150 0 150) base(Appearflags) = ambient_general : "Custom ambient sound
 
-This must be a looped file in the 'sounds' directory or a subdirectory.
+This must be a looped file in the 'sounds' directory or a subdirectory under 'sounds'.
 
 noise: the wav file to play - NOTE: 'sounds' is not needed in the file path (e.g. ambience/suck1.wav NOT sounds/ambience/suck1.wav)
 volume - default 1
@@ -701,7 +701,7 @@ speed - attenuation, default 3"
 ]
 @PointClass size(-8 -8 -8, 8 8 8) color(150 0 150) base(Appearflags) = play_sound_random : "Periodic Sound
 
-Play a sound on a periodic basis. File must be be in the 'sounds' directory or a subdirectory.
+Play a sound on a periodic basis. File must be be in the 'sounds' directory or a subdirectory under 'sounds'.
 
 volume - how loud (1 default full volume)
 noise: the wav file to play - NOTE: 'sounds' is not needed in the file path (e.g. ambience/suck1.wav NOT sounds/ambience/suck1.wav)

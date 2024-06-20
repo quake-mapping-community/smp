@@ -3,7 +3,7 @@ by dumptruck_ds
 
 Version 2024.2
 
-2024/6/22
+2024/6/20
 
 * Fixed a bug that prevented some monsters from spawning
 * Added Single Player Instagib modes (spinstagib)
@@ -17,14 +17,14 @@ Version 2024.2
     fraglimit 333 - only monsters instagib
     fraglimit 999 - only players instagib
     fraglimit 0 - disables instagib
-* instagib sounds will randomize between 4 appropriate built-in sounds
+* instagib sounds will randomize between appropriate built-in sounds
 
 Version 2024.1
 
 2024/3/18
 
 * This version was supposed to fix a bug that prevented monsters from spawning.
-The fix was incorrect and is fixed in Version 2024.2
+The code was incorrect and is fixed in Version 2024.2
 
 Version 2023.1
 

@@ -516,15 +516,19 @@ void() GibSoundsRandom =
 {
 	local float		rs;
 
-	rs = rint ((random() * 3) + 1);
+	rs = rint ((random() * 5) + 1);
 	if (rs == 1)
 		self.noise = "player/teledth1.wav";
 	if (rs == 2)
 		self.noise = "player/gib.wav";
 	if (rs == 3)
-		self.noise = "player/tornoff2.wav";
+		self.noise = "blob/death1.wav";
 	if (rs == 4)
 		self.noise = "player/udeath.wav";
+	if (rs == 5)
+		self.noise = "zombie/z_miss.wav";
+	if (rs == 6)
+		self.noise = "misc/h2ohit1.wav";
 
 	sound (self, CHAN_VOICE, self.noise, 1, ATTN_NONE);
 	return;
