@@ -1,0 +1,23 @@
+
+// load the base configuration
+exec default.cfg
+
+// load the last saved configuration
+exec config.cfg
+
+// run a user script file if present
+exec autoexec.cfg
+
+//
+// stuff command line statements
+//
+stuffcmds
+
+// start demos if not already running a server
+startdemos demo1 demo2 demo3
+
+//sp-instagib commands
+alias gib_all "fraglimit 666"
+alias gib_monsters "fraglimit 333"
+alias gib_player "fraglimit 999"
+alias gib_off "fraglimit 0"

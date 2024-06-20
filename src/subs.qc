@@ -258,8 +258,8 @@ void() SUB_UseTargets =
 		t.target4 = self.target4;
 		return;
 	}
-	
-	
+
+
 //
 // print the message
 //
@@ -295,7 +295,7 @@ void() SUB_UseTargets =
 			t = find(t, targetname, self.killtarget2);
 		}
 	}
-	
+
 //
 // fire targets
 //
@@ -360,6 +360,58 @@ void() SUB_UseAndForgetTargets =
 	// self.target2 = "";
 	// self.target3 = "";
 	// self.target4 = "";
+};
+
+/*
+================
+SUB_FieldIsTargeted
+
+Return TRUE if the "fld" field of this entity is non-empty and matches
+the target (or target2/3/4 or pain_target) field of any other entity,
+otherwise return FALSE.  -- iw
+================
+*/
+float(.string fld) SUB_FieldIsTargeted =
+{
+	if (self.fld == "")
+		return FALSE;
+
+	// the following function calls are staggered to avoid the silly
+	// "return value conflict" problem with traditional compilers -- iw
+
+	if (find (world, target, self.fld) != world)
+		return TRUE;
+
+	if (find (world, target2, self.fld) != world)
+		return TRUE;
+
+	if (find (world, target3, self.fld) != world)
+		return TRUE;
+
+	if (find (world, target4, self.fld) != world)
+		return TRUE;
+
+	return FALSE;
+};
+
+/*
+================
+SUB_IsTargeted
+
+Return TRUE if the targetname (or targetname2/3/4) field of this entity
+is non-empty and matches the target (or target2/3/4 or pain_target)
+field of any other entity, otherwise return FALSE.  -- iw
+================
+*/
+float() SUB_IsTargeted =
+{
+	// the following function calls are staggered to avoid the silly
+	// "return value conflict" problem with traditional compilers -- iw
+
+	if (SUB_FieldIsTargeted (targetname))
+		return TRUE;
+
+	return FALSE;
 };
 
 /*

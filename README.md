@@ -2,23 +2,22 @@
 
 ### Speed Mapping progs (SMP) by dumptruck_ds
 
-This is a simple mod intended for use in community speed mapping events. It is
-also a excellent base for new QuakeC projects as I've included a multitude of
-bug fixes and some popular quality-of-life features. smp is a modified version
-of the 1.06 id1 "netquake" progs. The GitHub repository can be found here:
-https://github.com/quake-mapping-community/smp
+This is a lightweight Quake mod and devkit. It retains the core gameplay of the
+original game while offering popular quality-of-life features for mappers. It is
+also an excellent base for new QuakeC projects, as it includes a comprehensive
+list of bug fixes; more than other "clean code" versions of QuakeC.
 
 INSTALLATION
 
-Use this like any other Quake mod by unzipping the "smp" folder into your Quake
-directory. Then launch Quake with the -game parameter on the command line.
+Unzip the "smp" folder into your Quake directory. Then launch Quake with the
+-game parameter on the command line.
 
 e.g C:\Quake -game smp
 
-If you want to make a map or episode with smp just release it as a stand alone
-mod. Simply rename "smp" as you desire and release it as you would any mod or
-map. Just make sure to include the files that came with smp. (don't forget to
-delete any configs or extra unwanted files!)
+If you want to make a map or episode with smp, simply rename "smp" as you desire
+and release it as you would any mod or map. Just make sure to include the files
+that came with smp. (don't forget to delete any configs or extra unwanted
+files!)
 
 FEATURES
 
@@ -32,13 +31,14 @@ FEATURES
 * target thru target4 for more complex gameplay setups
 * a basic misc_model entity, useful for decorations
 * three custom sound entities
+* single player instagib
 
 FIXES
 
-There are countless bug fixes from the Quake Info Pool, progs_dump and other
-mods. Too many to include here, but you can review the commits on GitHub:
-https://github.com/quake-mapping-community/smp/commits/main or take a look at
-changelog.txt in the 'src' folder.
+There are many bug fixes from the Quake Info Pool, progs_dump and other mods.
+Take a look at changelog.txt in the 'src' folder for details.
+
+FGD
 
 The smp.fgd file is the same as the default included with TrenchBroom 2023.1
 with added spawnflags, keys and entities noted below.
@@ -70,10 +70,28 @@ KEY / VALUES
 
 ENTITIES
 
+Usage for these entities are detailed in the fgd:
+
 * misc_model: a simple entity to display a model
 * play_sound_triggered: trigger a custom sound on demand
 * play_sound_random: play a custom sound at random intervals
 * ambient_general: plays a custom loop-able sound
+
+SINGLE PLAYER INSTAGIB
+
+Works on any id1 compatible map. Set your desired mode in the console:
+
+* gib_all - instagib everyone
+* gib_monsters - only monsters instagib
+* gib_player - only players instagib
+* gib_off - disables instagib
+
+You can also enable them on the command line:
+
+* fraglimit 666 - instagib everyone
+* fraglimit 333 - only monsters instagib
+* fraglimit 999 - only players instagib
+* fraglimit 0 - disables instagib
 
 ### CONTACT
 

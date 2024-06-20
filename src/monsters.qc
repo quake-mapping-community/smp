@@ -10,6 +10,25 @@
 //		<code>
 // };
 //
+
+/*
+================
+monster_update_total
+
+Call this function to safely update total_monsters when the game is in
+progress.  It adds "n" to total_monsters, then notifies all clients of
+the change.  -- iw
+================
+*/
+void(float n) monster_update_total =
+{
+	total_monsters = total_monsters + n;
+
+	WriteByte (MSG_ALL, SVC_UPDATESTAT);
+	WriteByte (MSG_ALL, STAT_TOTALMONSTERS);
+	WriteLong (MSG_ALL, total_monsters);
+};
+
 // Preach's teleporting monsters flag - start -- dumptruck_ds
 // from: https://tomeofpreach.wordpress.com/2017/10/08/teleporting-monsters-flag/
 //
@@ -59,6 +78,36 @@ if !(self.spawnflags & 32) // for trigger spawning dumptruck_ds
 spawn_tfog (self.origin);
 spawn_tdeath(self.origin, self);
 }
+
+/*
+================
+monster_teleport_check
+
+This detects and eliminates a common map bug: a trigger-spawned monster
+which can't be activated either because it has no targetname or because
+its targetname isn't targeted by any other entity.  (This map bug would
+otherwise make it impossible for the player to get 100% kills.)  -- iw
+================
+*/
+void() monster_teleport_check =
+{
+	if (!SUB_IsTargeted ())
+	{
+		dprint ("WARNING: removed untargeted trigger-spawned ");
+		dprint (self.classname);
+		dprint (" at ");
+		dprint (vtos (self.origin));
+		dprint ("\n");
+
+		remove (self);
+		return;
+	}
+
+	// the targetname appears to be OK, so let's finish setting up the
+	// trigger-spawned monster -- iw
+	monster_update_total (1);
+};
+
 float (void() monster_start_fn) monster_teleport =
 {
 if(!(self.spawnflags & 8))
@@ -77,7 +126,12 @@ self.solid = SOLID_NOT;
 self.movetype = MOVETYPE_NONE;
 self.use = monster_teleport_go;
 self.think1 = monster_start_fn;
-total_monsters = total_monsters + 1;
+
+// wait for other entities to finish spawning, then check that
+// something targets this -- iw
+self.think = monster_teleport_check;
+self.nextthink = time + 0.1;
+
 return TRUE;
 }
 // Preach's teleporting monsters flag - end -- dumptruck_ds
@@ -205,19 +259,6 @@ if(time <= 0.5)
 
 void() walkmonster_start =
 {
-	if ((self.spawnflags && 8) && (!self.targetname))
-		{
-			dprint ("\n");
-			dprint ("\bWARNING:\b removed untargeted trigger-spawned ");
-			dprint (self.classname);
-			dprint (" at ");
-			dprint (vtos (self.origin));
-			dprint ("\n");
-			dprint ("\n");
-
-			remove (self);
-			return;
-		}
 // Preach's teleporting monsters flag - start -- dumptruck_ds
 	if(monster_teleport(walkmonster_start_go))
 	return;
@@ -292,19 +333,6 @@ void() flymonster_start_go =
 
 void() flymonster_start =
 {
-	if ((self.spawnflags && 8) && (!self.targetname))
-		{
-			dprint ("\n");
-			dprint ("\bWARNING:\b removed untargeted trigger-spawned ");
-			dprint (self.classname);
-			dprint (" at ");
-			dprint (vtos (self.origin));
-			dprint ("\n");
-			dprint ("\n");
-
-			remove (self);
-			return;
-		}
 // Preach's teleporting monsters flag - start -- dumptruck_ds
 	if(monster_teleport(flymonster_start_go))
 	return;
@@ -378,20 +406,6 @@ void() swimmonster_start_go =
 
 void() swimmonster_start =
 {
-	if ((self.spawnflags && 8) && (!self.targetname))
-		{
-			dprint ("\n");
-			dprint ("\bWARNING:\b removed untargeted trigger-spawned ");
-			dprint (self.classname);
-			dprint (" at ");
-			dprint (vtos (self.origin));
-			dprint ("\n");
-			dprint ("\n");
-
-			remove (self);
-			return;
-		}
-
 	self.touch = monster_touch;	// 1998-09-16 Sliding/not-jumping on monsters/boxes/players fix by Maddes/Kryten
 
   self.flags = self.flags | FL_SWIM;	// 1998-08-14 Monsters sometimes do not move fix by Lord Sméagol

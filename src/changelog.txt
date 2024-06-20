@@ -1,9 +1,34 @@
 Speed Mapping progs (SMP)
 by dumptruck_ds
 
+Version 2024.2
+
+2024/6/20
+
+* Fixed a bug that prevented some monsters from spawning
+* Added Single Player Instagib modes (spinstagib)
+  Set your desired mode in the console:
+    gib_all - instagib everyone
+    gib_monsters - only monsters instagib
+    gib_player - only players instagib
+    gib_off - disables instagib
+  You can also enable them on the command line:
+    fraglimit 666 - instagib everyone
+    fraglimit 333 - only monsters instagib
+    fraglimit 999 - only players instagib
+    fraglimit 0 - disables instagib
+* instagib sounds will randomize between appropriate built-in sounds
+
+Version 2024.1
+
+2024/3/18
+
+* This version was supposed to fix a bug that prevented monsters from spawning.
+The code was incorrect and is fixed in Version 2024.2
+
 Version 2023.1
 
-2023.11.11
+2023/11/11
 * Added targets2-4
 * Added killtarget2
 * Added SPAWN_ANGRY for trigger spawned monsters

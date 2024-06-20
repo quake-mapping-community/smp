@@ -119,12 +119,34 @@ void(entity targ, entity inflictor, entity attacker, float damage) T_Damage=
 // used by buttons and triggers to set activator for target firing
 	damage_attacker = attacker;
 
+// team play damage avoidance
+// 1998-07-29 Teamplay 1 fix by Maddes  start
+	if ( (teamplay == 1) && (targ.team > 0) && (targ.team == attacker.team)
+	&& (targ != attacker)
+	&& (attacker.classname == "player")
+	&& (inflictor.classname != "door") )	// because squishing a teammate is still possible
+// 1998-07-29 Teamplay 1 fix by Maddes  end
+		return;
+
 // check for quad damage powerup on the attacker
 	if (attacker.super_damage_finished > time)
 		damage = damage * 4;
 
-	//don't deplete armor if drowning/burning, or protected by biosuit/pentagram/godmode (note: in ID1 pentagram/godmode doesn't actually protect your armor)
-	if (death_type == "burning" || death_type == "drowning" || targ.invincible_finished >= time || targ.flags & FL_GODMODE)
+// Instagib
+	if (!deathmatch)
+		{
+			if ((cvar("fraglimit") == 666) && (!(attacker.classname == "fireball")) && (!(death_type == "falling" || death_type == "burning" || death_type == "drowning" || death_type == "squish" || death_type == "slimed" || targ.invincible_finished >= time || targ.flags & FL_GODMODE))) //everyone gibs
+			damage = damage * 666;
+
+			if ((cvar("fraglimit") == 333) && (attacker.flags & FL_CLIENT) && (!(attacker.classname == "fireball")) && (!(death_type == "falling"  || death_type == "burning" || death_type == "drowning" || death_type == "squish" || death_type == "slimed" || targ.invincible_finished >= time || targ.flags & FL_GODMODE))) //gibs monsters only
+			damage = damage * 666;
+
+			if ((cvar("fraglimit") == 999) && (attacker.flags & FL_MONSTER) && (!(attacker.classname == "fireball")) && (!(death_type == "falling"  || death_type == "burning" || death_type == "drowning" || death_type == "squish" || death_type == "slimed" || targ.invincible_finished >= time || targ.flags & FL_GODMODE))) //gibs players only
+			damage = damage * 666;
+		}
+
+	//don't deplete armor if drowning, or protected by biosuit/pentagram/godmode (note: in ID1 pentagram/godmode doesn't actually protect your armor)
+	if (death_type == "drowning" || targ.invincible_finished >= time || targ.flags & FL_GODMODE)
 		ignore_armor = TRUE;
 	else
 		ignore_armor = FALSE;
@@ -177,15 +199,6 @@ void(entity targ, entity inflictor, entity attacker, float damage) T_Damage=
 		}
 		return;
 	}
-
-// team play damage avoidance
-// 1998-07-29 Teamplay 1 fix by Maddes  start
-	if ( (teamplay == 1) && (targ.team > 0) && (targ.team == attacker.team)
-	&& (targ != attacker)
-	&& (attacker.classname == "player")
-	&& (inflictor.classname != "door") )	// because squishing a teammate is still possible
-// 1998-07-29 Teamplay 1 fix by Maddes  end
-		return;
 
 // do the damage
 	targ.health = targ.health - take;

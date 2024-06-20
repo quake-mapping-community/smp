@@ -267,6 +267,10 @@ void() worldspawn =
 	precache_sound ("misc/water1.wav");			// swimming
 	precache_sound ("misc/water2.wav");			// swimming
 
+	//Instagib
+	precache_sound ("blob/death1.wav");
+	precache_sound ("zombie/z_miss.wav");
+
 	precache_model ("progs/player.mdl");
 	precache_model ("progs/eyes.mdl");
 	precache_model ("progs/h_player.mdl");

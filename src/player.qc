@@ -512,6 +512,28 @@ void(string gibname, float dm) ThrowHead =
 	self.avelocity = crandom() * '0 600 0';
 };
 
+void() GibSoundsRandom =
+{
+	local float		rs;
+
+	rs = rint ((random() * 5) + 1);
+	if (rs == 1)
+		self.noise = "player/teledth1.wav";
+	if (rs == 2)
+		self.noise = "player/gib.wav";
+	if (rs == 3)
+		self.noise = "blob/death1.wav";
+	if (rs == 4)
+		self.noise = "player/udeath.wav";
+	if (rs == 5)
+		self.noise = "zombie/z_miss.wav";
+	if (rs == 6)
+		self.noise = "misc/h2ohit1.wav";
+
+	sound (self, CHAN_VOICE, self.noise, 1, ATTN_NONE);
+	return;
+};
+
 
 void() GibPlayer =
 {
@@ -534,6 +556,12 @@ void() GibPlayer =
 		return;
 	}
 
+	if ((cvar("fraglimit") == 666) || (cvar("fraglimit") == 999))
+	{
+		GibSoundsRandom();
+		return;
+	}
+
 	if (random() < 0.5)
 		sound (self, CHAN_VOICE, "player/gib.wav", 1, ATTN_NONE);
 	else
@@ -542,6 +570,9 @@ void() GibPlayer =
 
 void() PlayerDie =
 {
+	if ((cvar("fraglimit") == 666) || (cvar("fraglimit") == 999)) //pause spawning for single player Instagib - dumptruck_ds
+	self.attack_finished = time  +1.25;
+
 	local	float	i;
 
 // 1998-07-23 Palette shift when player dies with quad/pentagram fix by Maddes  start

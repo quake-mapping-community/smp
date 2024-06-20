@@ -549,7 +549,7 @@ void() PutClientInServer =
 	self.fixangle = TRUE;		// turn this way immediately
 
 	cleanUpClientStuff = 2; // decreased on subsequent frames, used to startup some fog-related stuff
-	
+
 // oh, this is a hack!
 	setmodel (self, "progs/eyes.mdl");
 	modelindex_eyes = self.modelindex;
@@ -728,6 +728,7 @@ void() CheckRules =
 
 void() PlayerDeathThink =
 {
+
 	local float 	forward;
 
 	if ((self.flags & FL_ONGROUND))
@@ -738,6 +739,12 @@ void() PlayerDeathThink =
 			self.velocity = '0 0 0';
 		else
 			self.velocity = forward * normalize(self.velocity);
+	}
+	// 1.25 second pause for spinstagib, without this players can respawn while gibbing if they are spamming fire - dumptruck_ds
+	if ((cvar("fraglimit") == 666) || (cvar("fraglimit") == 999))
+	{
+		if (self.attack_finished > time)
+			return;
 	}
 
 // wait for all buttons released
@@ -756,6 +763,7 @@ void() PlayerDeathThink =
 	self.button0 = 0;
 	self.button1 = 0;
 	self.button2 = 0;
+
 	respawn();
 };
 
@@ -863,7 +871,8 @@ void() WaterMove =
 			else
 				self.dmgtime = time + 0.2;
 
-			T_Damage (self, world, world, 10*self.waterlevel);
+				self.deathtype = "burning";	// check for Instagib - dumptruck_ds
+				T_Damage (self, world, world, 10*self.waterlevel);
 		}
 	}
 	else if (self.watertype == CONTENT_SLIME)
@@ -871,6 +880,7 @@ void() WaterMove =
 		if (self.dmgtime < time && self.radsuit_finished < time)
 		{
 			self.dmgtime = time + 1;
+			self.deathtype = "slimed";	// check for Instagib - dumptruck_ds
 			T_Damage (self, world, world, 4*self.waterlevel);
 		}
 	}
@@ -1525,6 +1535,8 @@ void(entity targ, entity attacker) ClientObituary =
 					bprint (" was scragged by a Scrag\n");
 				if (attacker.classname == "monster_zombie")
 					bprint (" joins the Zombies\n");
+				if (attacker.classname == "monster_boss")
+					bprint (" was fried by Chthon\n");
 
 				return;
 			}
