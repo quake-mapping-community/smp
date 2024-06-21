@@ -530,7 +530,7 @@ void() GibSoundsRandom =
 	if (rs == 6)
 		self.noise = "misc/h2ohit1.wav";
 
-	sound (self, CHAN_VOICE, self.noise, 1, ATTN_NONE);
+	sound (self, CHAN_VOICE, self.noise, 1, ATTN_NORM);
 	return;
 };
 
